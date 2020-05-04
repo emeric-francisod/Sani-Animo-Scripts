@@ -20,7 +20,7 @@ header {
     align-items: center;
 }
 
-nav ul {
+nav > ul {
     list-style-type: none;
     padding: 0;
     display: flex;
@@ -28,11 +28,28 @@ nav ul {
     justify-content: flex-end;
 }
 
-nav ul li {
+nav > ul li {
     padding: 0 20px;
 }
 
-nav ul li a {
+nav > ul li a {
     color: black;
     text-decoration: none;
+}
+
+
+.more:hover ul.submenu {
+    display: flex;
+}
+
+ul.submenu {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.submenu li {
+    padding: 0;
 }
