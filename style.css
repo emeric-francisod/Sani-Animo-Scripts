@@ -44,6 +44,7 @@ nav > ul li a {
 
 ul.submenu {
     display: none;
+    position: absolute;
     flex-direction: column;
     justify-content: flex-start;
     list-style-type: none;
