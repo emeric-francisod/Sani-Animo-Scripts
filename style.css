@@ -48,7 +48,11 @@ ul.submenu {
     flex-direction: column;
     justify-content: flex-start;
     list-style-type: none;
-    padding: 0;
+    padding: 15px;
+    background-color: rgb(209, 177, 34);
+    box-shadow: 0px 2px black;
+    right: 32px;
+    box-sizing: border-box;
 }
 
 ul.submenu li {
