@@ -12,6 +12,7 @@ window.addEventListener("click", function(e) {
     console.log("clic sur la fenêtre");
     let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
     for (let i = 0 ; i < openedMenuElts.length ; i++) {
+        e.stopPropagation();
         if (e.pageY < openedMenuElts[i].offsetTop
             ||e.pageY > openedMenuElts[i].offsetTop + openedMenuElts[i].offsetheight
             || e.pageX < openedMenuElts[i].offsetLeft
@@ -19,4 +20,4 @@ window.addEventListener("click", function(e) {
                 openedMenuElts[i].parentNode.classList.toggle("opened");
             }
     }
-}, false);
+}, true);
