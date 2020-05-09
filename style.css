@@ -38,7 +38,7 @@ nav > ul li a {
 }
 
 
-.more:hover ul.submenu {
+.more:hover ul.submenu, .more.opened ul.submenu {
     display: flex;
 }
 
