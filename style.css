@@ -37,6 +37,10 @@ nav > ul li a {
     text-decoration: none;
 }
 
+nav a:focus {
+    background-color: blueviolet;
+}
+
 
 .more:hover ul.submenu, .more.opened ul.submenu {
     display: flex;

@@ -3,6 +3,8 @@ function toggleMenu (plusLinkElt) {
         plusLinkElt.classList.remove("opened");
     } else {
         plusLinkElt.classList.add("opened");
+        plusLinkElt.querySelector(".submenu li:first-child a").focus();
+
     }
 
 }
