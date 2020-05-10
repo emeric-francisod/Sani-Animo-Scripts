@@ -1,7 +1,6 @@
 function toggleMenu (plusLinkElt) {
     if (plusLinkElt.classList.contains("opened")) {
         plusLinkElt.classList.remove("opened");
-        console.log(plusLinkElt);
         plusLinkElt.querySelector("a:first-child").focus();
     } else {
         plusLinkElt.classList.add("opened");
@@ -17,6 +16,11 @@ for (let i = 0 ; i < moreElts.length ; i++) {
     moreElts[i].addEventListener("click", function(e) {
         e.preventDefault();
         toggleMenu(e.currentTarget);
+    });
+
+    moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
+        e.preventDefault();
+        toggleMenu(e.currentTarget.parentNode);
     });
 }
 
