@@ -1,15 +1,22 @@
+function toggleMenu (plusLinkElt) {
+    if (plusLinkElt.classList.contains("opened")) {
+        plusLinkElt.classList.remove("opened");
+    } else {
+        plusLinkElt.classList.add("opened");
+    }
+
+}
+
 let moreElts = document.getElementsByClassName("more");
 
 for (let i = 0 ; i < moreElts.length ; i++) {
     moreElts[i].addEventListener("click", function(e) {
-        console.log("clic sur le lien");
         e.preventDefault();
         e.currentTarget.classList.toggle("opened");
     });
 }
 
 window.addEventListener("click", function(e) {
-    console.log("clic sur la fenêtre");
     let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
     for (let i = 0 ; i < openedMenuElts.length ; i++) {
         e.stopPropagation();
@@ -21,3 +28,11 @@ window.addEventListener("click", function(e) {
             }
     }
 }, true);
+
+window.addEventListener("scroll", function(e) {
+    let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
+    for (let i = 0 ; i < openedMenuElts.length ; i++) {
+        e.stopPropagation();
+        openedMenuElts[i].parentNode.classList.toggle("opened");
+    }
+});

@@ -58,3 +58,7 @@ ul.submenu {
 ul.submenu li {
     padding: 0;
 }
+
+main {
+    padding: 32px 50px;
+}
