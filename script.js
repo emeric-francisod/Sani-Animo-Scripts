@@ -1,8 +1,9 @@
-function toggleMenu (plusLinkElt) {
-    if (plusLinkElt.classList.contains("opened")) {
+function toggleMenu (plusLinkElt, action = "hey!") {
+    console.log(action);
+    if (plusLinkElt.classList.contains("opened") && action !== "open" || action === "close") {
         console.log("Menu closing");
         plusLinkElt.classList.remove("opened");
-    } else {
+    } else if (!plusLinkElt.classList.contains("opened") || action === "open"){
         console.log("Menu opening");
         plusLinkElt.classList.add("opened");
         // plusLinkElt.querySelector(".submenu li:first-child a").focus();
@@ -19,6 +20,9 @@ function windowEventMenuCallback (e) {
     }
 }
 
+
+
+
 let moreElts = document.getElementsByClassName("more");
 
 for (let i = 0 ; i < moreElts.length ; i++) {
@@ -29,9 +33,8 @@ for (let i = 0 ; i < moreElts.length ; i++) {
 
     /* moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
         e.preventDefault();
-        console.log("focus lien ");
-        toggleMenu(e.currentTarget.parentNode);
-    }, true); */
+        toggleMenu(e.currentTarget.parentNode, "open");
+    }); */
 }
 
 window.addEventListener("click", function(e) {
@@ -40,10 +43,10 @@ window.addEventListener("click", function(e) {
         e.preventDefault();
         e.stopPropagation();
         if (e.pageY < openedMenuElts[i].offsetTop
-            ||e.pageY > openedMenuElts[i].offsetTop + openedMenuElts[i].offsetheight
-            || e.pageX < openedMenuElts[i].offsetLeft
+            ||e.pageY > openedMenuElts[i].offsetTop + openedMenuElts[i].offsetHeight
+            ||e.pageX < openedMenuElts[i].offsetLeft
             ||e.pageX > openedMenuElts[i].offsetLeft + openedMenuElts[i].offsetWidth) {
-                toggleMenu(openedMenuElts[i].parentNode);
+                toggleMenu(openedMenuElts[i].parentNode, "window click");
             }
     }
 }, true);
