@@ -31,13 +31,18 @@ for (let i = 0 ; i < moreElts.length ; i++) {
         toggleMenu(e.currentTarget);
     });
 
+    moreElts[i].addEventListener("focusout", function(e) {
+        console.log("Focus out");
+        toggleMenu(e.currentTarget, "close");
+    });
+
     /*moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
         e.preventDefault();
         toggleMenu(e.currentTarget.parentNode, "open");
     }); */
 }
 
-window.addEventListener("click", function(e) {
+/* window.addEventListener("click", function(e) {
     console.log("Window click");
     let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
     for (let i = 0 ; i < openedMenuElts.length ; i++) {
@@ -55,7 +60,7 @@ window.addEventListener("click", function(e) {
                 toggleMenu(openedMenuElts[i].parentNode, "window click");
             }
     }
-}, true);
+}, true); */
 
 window.addEventListener("scroll", windowEventMenuCallback);
 
