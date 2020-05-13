@@ -174,7 +174,7 @@ main {
     }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 769px) and (max-width: 990px) {
     #content header {
         display: flex;
         flex-direction: row;
@@ -188,5 +188,22 @@ main {
 
     #content .more {
         display: list-item;
+    }
+
+    #content header nav ul li.reductible {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 991px) {
+    #content header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #content header nav {
+        display: block;
     }
 }
