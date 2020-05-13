@@ -31,12 +31,14 @@ for (let i = 0 ; i < moreElts.length ; i++) {
         toggleMenu(e.currentTarget);
     });
 
-    moreElts[i].addEventListener("focusout", function(e) {
+    /* moreElts[i].addEventListener("focusout", function(e) {
         console.log("Focus out");
         toggleMenu(e.currentTarget, "close");
-    });
+    }); */
 
-    /*moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
+    /* moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
+        console.log("Menu focus");
+        e.stopImmediatePropagation();
         e.preventDefault();
         toggleMenu(e.currentTarget.parentNode, "open");
     }); */
