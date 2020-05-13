@@ -42,26 +42,6 @@ for (let i = 0 ; i < moreElts.length ; i++) {
     }); */
 }
 
-/* window.addEventListener("click", function(e) {
-    console.log("Window click");
-    let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
-    for (let i = 0 ; i < openedMenuElts.length ; i++) {
-        e.preventDefault();
-        // e.stopPropagation();
-        let plusMenuElt = openedMenuElts[i].parentNode;
-        if ((e.pageY < openedMenuElts[i].offsetTop
-            ||e.pageY > openedMenuElts[i].offsetTop + openedMenuElts[i].offsetHeight
-            ||e.pageX < openedMenuElts[i].offsetLeft
-            ||e.pageX > openedMenuElts[i].offsetLeft + openedMenuElts[i].offsetWidth)
-            && (e.pageY < plusMenuElt.offsetTop
-            ||e.pageY > plusMenuElt.offsetTop + plusMenuElt.offsetHeight
-            ||e.pageX < plusMenuElt.offsetLeft
-            ||e.pageX > plusMenuElt.offsetLeft + plusMenuElt.offsetWidth)) {
-                toggleMenu(openedMenuElts[i].parentNode, "window click");
-            }
-    }
-}, true); */
-
 window.addEventListener("scroll", windowEventMenuCallback);
 
 window.addEventListener("keyup", function (e) {
