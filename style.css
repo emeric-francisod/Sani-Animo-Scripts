@@ -26,6 +26,7 @@ header {
 }
 
 #blur {
+    display: none;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -42,6 +43,7 @@ body.opened #blur {
 }
 
 #sidebar {
+    display: none;
     position: fixed;
     top: 0;
     right: -80%;
@@ -77,6 +79,7 @@ body.opened #sidebar {
 }
 
 #hamburger-button {
+    display: none;
     position: fixed;
     bottom: 16px;
     right: 32px;
@@ -105,4 +108,22 @@ body.opened #sidebar {
 
 body.opened #hamburger-button button:before {
     content: "X";
+}
+
+@media screen and (max-width: 990px) {
+    #blur {
+        display: block;
+    }
+
+    #sidebar {
+        display: block;
+    }
+
+    #hamburger-button {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 991px) {
+
 }
