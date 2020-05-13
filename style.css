@@ -3,73 +3,106 @@ html {
 }
 
 body {
-    background-image: radial-gradient(farthest-side, rgb(57, 197, 240) 0%, rgb(0, 81, 255) 75%, rgb(2, 0, 150) 100%);
+    background-image: radial-gradient(farthest-side, rgb(57, 197, 240) 0%, rgb(0, 81, 255) 75%, rgb(2, 0, 150)100%);
     background-repeat: no-repeat;
     margin: 0;
+    overflow-x: hidden;
+}
+
+body.opened {
+    overflow-y: hidden;
+}
+
+body.opened #content {
+    filter: blur(2px);
 }
 
 header {
     width: 100%;
     box-sizing: border-box;
     margin: 0;
-    background-color: rgb(240, 206, 53);
+    background-color: rgb(240,206,53);
     padding: 16px 32px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 }
 
-nav > ul {
+#blur {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgb(0, 0, 0);
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 250ms ease-out;
+}
+
+body.opened #blur {
+    opacity: 0.7;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -80%;
+    z-index: 20;
+    width: 80%;
+    height: 100%;
+    background-color: rgb(240,206,53);
+    transition: right 250ms ease-in;
+}
+
+body.opened #sidebar {
+    right: 0;
+}
+
+#sidebar header {
+    border-bottom: 2px grey solid;
+}
+
+#sidebar nav ul {
     list-style-type: none;
-    padding: 0;
+    padding: 32px;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    flex-direction: column;
 }
 
-nav > ul li {
-    padding: 0 20px;
+#sidebar nav ul li {
+    padding: 16px 0;
 }
 
-nav > ul li a {
+#sidebar nav ul li a {
     color: black;
     text-decoration: none;
 }
 
-nav a:focus {
-    background-color: blueviolet;
-}
-
-nav a:hover {
-    background-color: rgb(187, 145, 226);
-}
-
-.more {
-    cursor: pointer;
-}
-
-.more:hover ul.submenu, .more.opened ul.submenu {
-    display: flex;
-}
-
-ul.submenu {
-    display: none;
-    position: absolute;
-    flex-direction: column;
-    justify-content: flex-start;
-    list-style-type: none;
-    padding: 15px;
-    background-color: rgb(209, 177, 34);
-    box-shadow: 0px 2px black;
+#hamburger-button {
+    position: fixed;
+    bottom: 16px;
     right: 32px;
-    box-sizing: border-box;
+    width: 64px;
+    height: 64px;
+    background-color: rgb(240, 206, 53);
+    z-index: 100;
+    border-radius: 50%;
 }
 
-ul.submenu li {
-    padding: 0;
+#hamburger-button button {
+    font-size: 40pt;
+    border: none;
+    background-color: transparent;
+    width: 64px;
+    height: 64px;
 }
 
-main {
-    padding: 32px 50px;
+#hamburger-button button:focus {
+    outline: none;
+}
+
+#hamburger-button button:before {
+    content: "≡";
+}
+
+body.opened #hamburger-button button:before {
+    content: "X";
 }
