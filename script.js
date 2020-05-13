@@ -23,27 +23,15 @@ function windowEventMenuCallback (e) {
 let moreElts = document.getElementsByClassName("more");
 
 for (let i = 0 ; i < moreElts.length ; i++) {
-    /* moreElts[i].addEventListener("click", function(e) {
+    moreElts[i].querySelector("a:first-child").addEventListener("click", function(e) {
         console.log("Link click")
         e.preventDefault();
-        toggleMenu(e.currentTarget);
-    }); */
-
-    /* moreElts[i].addEventListener("focusout", function(e) {
-        console.log("Focus out");
-        toggleMenu(e.currentTarget, "close");
-    }); */
-
-    moreElts[i].querySelector("a:first-child").addEventListener("focus", function(e) {
-        console.log("Menu focus");
-        e.preventDefault();
-        toggleMenu(e.currentTarget.parentNode, "open");
+        toggleMenu(e.currentTarget.parentNode);
     });
 
-    moreElts[i].querySelector("a:first-child").addEventListener("blur", function(e) {
-        console.log("Menu blur");
-        e.preventDefault();
-        toggleMenu(e.currentTarget.parentNode, "close");
+    moreElts[i].addEventListener("focusout", function(e) {
+        console.log("Focus out");
+        toggleMenu(e.currentTarget, "close");
     });
 }
 
