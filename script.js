@@ -51,10 +51,12 @@ function hamburgerMenuAction(action) {
     hamburgerElt.focus();
     if (action === "hide" || action === "toggle" && document.body.classList.contains("opened")) {
         document.body.classList.remove("opened");
+        document.body.classList.add("closed");
         tabulationAction("give", bodyTabOrderElts);
         tabulationAction("remove", sidebarTabOrderElts);
     } else if (action === "show" || action === "toggle" && !document.body.classList.contains("opened")) {
         document.body.classList.add("opened");
+        document.body.classList.remove("closed");
         tabulationAction("remove", bodyTabOrderElts);
         tabulationAction("give", sidebarTabOrderElts);
     }
