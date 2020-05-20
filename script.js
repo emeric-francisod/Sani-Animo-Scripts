@@ -1,4 +1,13 @@
+function closePopin() {
+    let openedPopinElt = document.querySelector(".popin.opened");
+    if (openedPopinElt !== null) {
+        openedPopinElt.classList.remove("opened");
+        document.body.classList.remove("popin-opened");
+    }
+}
+
 let popinOpenersElts = document.getElementsByClassName("popin-opener");
+let blurElt = document.getElementById("blur");
 
 for (let i = 0 ; i < popinOpenersElts.length ; i++) {
     popinOpenersElts[i].addEventListener("click", function(e) {
@@ -10,8 +19,10 @@ for (let i = 0 ; i < popinOpenersElts.length ; i++) {
 
 window.addEventListener("keyup", function(e) {
     if (e.key === "Escape" && document.body.classList.contains("popin-opened")) {
-        let openedPopinElt = document.querySelector(".popin.opened");
-        openedPopinElt.classList.remove("opened");
-        document.body.classList.remove("popin-opened");
+        closePopin();
     }
+})
+
+blurElt.addEventListener("click", function(e) {
+    closePopin();
 })
