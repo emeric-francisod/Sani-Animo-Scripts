@@ -6,7 +6,10 @@ function closePopin() {
     }
 }
 
+
+
 let popinOpenersElts = document.getElementsByClassName("popin-opener");
+let popinCloseButtonElts = document.getElementsByClassName("popin-close");
 let blurElt = document.getElementById("blur");
 
 for (let i = 0 ; i < popinOpenersElts.length ; i++) {
@@ -14,6 +17,12 @@ for (let i = 0 ; i < popinOpenersElts.length ; i++) {
         let popinElt = document.getElementById(e.currentTarget.dataset.popinTarget);
         popinElt.classList.add("opened");
         document.body.classList.add("popin-opened");
+    });
+}
+
+for (let i = 0 ; i < popinCloseButtonElts.length ; i++) {
+    popinCloseButtonElts[i].addEventListener("click", function(e) {
+        closePopin();
     });
 }
 

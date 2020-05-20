@@ -16,6 +16,10 @@ body.popin-opened #content {
     filter: blur(5px);
 }
 
+button {
+    cursor: pointer;
+}
+
 #blur {
     position: fixed;
     top: 0;
@@ -51,4 +55,12 @@ body.popin-opened #blur {
 
 .popin.opened {
     display: block;
+}
+
+.popin-close::before {
+    content: "X";
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
 }
