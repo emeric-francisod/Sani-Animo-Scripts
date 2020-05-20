@@ -1,0 +1,66 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: orange;
+    padding: 50px 75px;
+}
+
+body.popin-opened {
+    overflow: hidden;
+}
+
+body.popin-opened #content {
+    filter: blur(5px);
+}
+
+button {
+    cursor: pointer;
+}
+
+#blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: -30;
+    opacity: 0;
+}
+
+body.popin-opened #blur {
+    opacity: 0.7;
+    z-index: 30;
+}
+
+.popin {
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    width: 60%;
+    height: 75%;
+    padding: 50px 75px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    border: brown 2px solid;
+    border-radius: 10px;
+    box-shadow: black 0 8px 16px;
+    background-color: paleturquoise;
+}
+
+.popin.opened {
+    display: block;
+}
+
+.popin-close::before {
+    content: "X";
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
