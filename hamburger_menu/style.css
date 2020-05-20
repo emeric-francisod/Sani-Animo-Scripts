@@ -1,0 +1,108 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    background-image: radial-gradient(farthest-side, rgb(57, 197, 240) 0%, rgb(0, 81, 255) 75%, rgb(2, 0, 150) 100%);
+    background-repeat: no-repeat;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+body.opened {
+    overflow-y: hidden;
+}
+
+body.opened #content {
+    filter: blur(2px);
+}
+
+header {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: rgb(240, 206, 53);
+    padding: 16px 32px;
+}
+
+#blur {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+    z-index: 10;
+    transition: opacity 250ms ease-out;
+}
+
+body.opened #blur {
+    opacity: 0.7;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: -80%;
+    z-index: 20;
+    width: 80%;
+    height: 100%;
+    background-color: rgb(240, 206, 53);
+    transition: right 250ms ease-in;
+}
+
+body.opened #sidebar {
+    right: 0;
+}
+
+#sidebar header {
+    border-bottom: 2px grey solid;
+}
+
+#sidebar nav ul {
+    list-style-type: none;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar nav ul li {
+    padding: 16px 0;
+}
+
+#sidebar nav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+#hamburger-button {
+    position: fixed;
+    bottom: 16px;
+    right: 32px;
+    width: 64px;
+    height: 64px;
+    background-color: rgb(240, 206, 53);
+    z-index: 100;
+    border-radius: 50%;
+}
+
+#hamburger-button button {
+    font-size: 40pt;
+    border: none;
+    background-color: transparent;
+    width: 64px;
+    height: 64px;
+}
+
+#hamburger-button button:focus {
+    outline: none;
+}
+
+#hamburger-button button:before {
+    content: "≡";
+}
+
+body.opened #hamburger-button button:before {
+    content: "X";
+}
