@@ -25,7 +25,6 @@ body.popin-opened #content {
     background-color: black;
     z-index: -30;
     opacity: 0;
-    transition: opacity 250ms ease-out;
 }
 
 body.popin-opened #blur {
