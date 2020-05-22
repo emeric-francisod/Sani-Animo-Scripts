@@ -21,8 +21,13 @@ function getTabElements(parentElt) {
         }
     }
 
-    tabElts = parentElt.querySelectorAll(query);
-    console.log(tabElts);
+    let tabElts = parentElt.querySelectorAll(query);
+    for (let i = 0 ; i < tabElts.length ; i++) {
+        let elementTabIndex = tabElts[i].getAttribute("tabindex");
+        if (elementTabIndex !== "-1") {
+            tabableElements.push([tabElts[i], elementTabIndex]);
+        }
+    }
 }
 
 
@@ -34,6 +39,8 @@ let popinOpenersElts = document.getElementsByClassName("popin-opener");
 let popinCloseButtonElts = document.getElementsByClassName("popin-close");
 let blurElt = document.getElementById("blur");
 let contentElt = document.getElementById("content");
+
+let tabableElements = [];
 
 getTabElements(contentElt);
 
