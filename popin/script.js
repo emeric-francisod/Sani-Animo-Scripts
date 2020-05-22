@@ -1,9 +1,20 @@
+function openPopin( popinElt ) {
+    popinElt.classList.add( "opened" );
+    document.body.classList.add( "popin-opened" );
+
+    removeTabulation(tabableElements);
+}
+
+
+
 function closePopin() {
     let openedPopinElt = document.querySelector(".popin.opened");
     if (openedPopinElt !== null) {
         openedPopinElt.classList.remove("opened");
         document.body.classList.remove("popin-opened");
     }
+
+    giveTabulation(tabableElements);
 }
 
 
@@ -32,6 +43,26 @@ function getTabElements(parentElt) {
 
 
 
+function removeTabulation(tabableElements) {
+    for (let i = 0 ; i < tabableElements.length ; i++) {
+        tabableElements[i][0].setAttribute("tabindex", "-1");
+    }
+}
+
+
+
+function giveTabulation(tabableElements) {
+    for (let i = 0 ; i < tabableElements.length ; i++) {
+        if (tabableElements[i][1] === null) {
+            tabableElements[i][0].removeAttribute("tabindex");
+        } else {
+            tabableElements[i][0].setAttribute("tabindex", tabableElements[i][1]);
+        }
+    }
+}
+
+
+
 const FOCUS_ELT = ["a", "area", "audio", "button", "embed", "form", "iframe", "img", "input", "keygen", "label", "object", "select", "svg", "textarea", "video"];
 const FOCUS_ATTR = ["contenteditable", "focusable", "tabindex"];
 
@@ -47,8 +78,7 @@ getTabElements(contentElt);
 for (let i = 0 ; i < popinOpenersElts.length ; i++) {
     popinOpenersElts[i].addEventListener("click", function(e) {
         let popinElt = document.getElementById(e.currentTarget.dataset.popinTarget);
-        popinElt.classList.add("opened");
-        document.body.classList.add("popin-opened");
+        openPopin(popinElt);
     });
 }
 
