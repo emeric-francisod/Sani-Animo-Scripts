@@ -18,6 +18,6 @@
 - Le contenu principal de la page doit être placé dans un élément d'id `#content`.
 - Le popin est placé en dehors de cet élément et possède la classe `.popin` ainsi qu'un id.
 - L'élément d'ouverture possède la classe `.popin-opener` ainsi que l'attribut `data-popin-target` contenant l'id du popin à ouvrir.
-- Un élément bloc avec lid `#blur` doit également est présent en dehors du contenu.
+- Un élément bloc avec l'id `#blur` doit également est présent en dehors du contenu.
 - Le popin est par défaut caché et inaccessible avec `display: none;`. Pour l'afficher, on lui donnera la class `.opened`.
 - Lorsqu'un popin est ouvert, l'élément body de la page récupèrera la classe `popin-opened` ce qui permet entre autre d'afficher l'élément d'assombrissement ou de rendre flou le contenu. Il permettra aussi d'ajouter d'autres comportements.
