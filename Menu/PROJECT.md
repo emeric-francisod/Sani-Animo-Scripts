@@ -1,0 +1,55 @@
+# Projet Menu
+
+## Fonctionnalités
+- Le menu va changer de forme en fonction de la taille de l'écran.
+### Grands écrans
+Le menu est un menu simple, avec une mise en page en ligne.
+### Ecrans de taille moyenne
+Pour les écrans plus petits, les liens les moins importants sont réunis dans un menu déroulant.
+- Le menu s'ouvre quand:
+    - on clique dessus;
+    - on lui donne le focus avec une tabulation.
+- Le menu se ferme quand:
+    - on clique sur le lien d'ouverture;
+    - le lien et le menu perdent le focus dans une navigation avec les tabulations;
+    - on clique à l'extérieur;
+    - on appuie sur Echap;
+    - on scroll.
+- Au survol du lien et du menu:
+    - même si le menu n'est pas ouvert, il s'ouvre le temps du survol et se referme quand on le quitte.
+### Petits écrans
+Les petits écrans ont le droit à un menu de type hamburger.
+- Un bouton est présent en bas à droite de l'écran, position fixe.
+- Le menu s'ouvre quand:
+    - on clique sur le bouton.
+- Comportement de l'ouverture:
+    - animation du bouton hamburger en bouton croix;
+    - glissement du menu depuis la droite;
+    - le menu occupe toute la hauteur de l'écran et une partie de la largeur.
+- Lorsque le menu est ouvert:
+    - il est impossible d'accéder au reste de la page sans le fermer, même par tabulation;
+    - les scrolls vertical et horizontal sont bloqués;
+    - le reste de la page est flouté et assombri.
+- Le menu se ferme quand:
+    - on clique sur le bouton;
+    - on appuie sur Echap;
+    - on clique en dehors du menu.
+- Comportement de la fermeture:
+    - animation du bouton croix en bouton hamburger;
+    - glissement du menu vers la droite.
+- Lorsque le menu est fermé:
+    - il est impossible d'y accéder sans l'ouvrir, même par tabulation.
+
+## Utilisation
+### Menu simple
+- Le menu de base est le menu simple pour les grands écrans. Le style est appliqué par l'utilisateur.
+- L'élément du menu doit posséder un id.
+### Menu déroulant
+- Les liens qui devront être cachés et apparaître dans le menu déroulant doivent posséder la classe `.reductible`.
+- Le lien permettant d'ouvrir le menu déroulant doit être inséré dans le même menu et contenir la classe `.more`. Il sera rempli automatiquement avec les liens `.reductible` du même menu.
+### Menu hamburger
+- Tout le contenu principal de la page doit être placé dans une balise avec l'id `#content`.
+- Le bouton du menu hamburger doit être placé à l'extérieur du contenu et doit posséder la classe `.hamburger-menu-button`. Le contenu sera inséré dynamiquement. Il doit également posséder l'attribut `data-hamburger-menu-target` contenant l'id du conteneur du menu à ouvrir.
+- Le conteneur du menu hamburger doit posséder la classe `.hamburger-menu-wrapper` ainsi qu'un id. Il peut être stylisé comme souhaité. On peut lui donner l'attribut `data-linked-menu` pour le remplir automatiquement avec les liens du menu lié (utiliser l'id du menu).
+- Les menus remplacés doivent posséder la classe `.hamburger-compatible` pour pouvoir être cachés.
+
