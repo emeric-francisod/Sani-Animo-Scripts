@@ -3,32 +3,6 @@ const FOCUS_ATTRS = ["contenteditable", "focusable", "tabindex"];
 
 
 
-
-
-function toggleMenu (plusLinkElt, action = "hey!") {
-    if (plusLinkElt.classList.contains("opened") && action !== "open" || action === "close") {
-        console.log("Menu closing");
-        plusLinkElt.classList.remove("opened");
-    } else if (!plusLinkElt.classList.contains("opened") || action === "open"){
-        console.log("Menu opening");
-        plusLinkElt.classList.add("opened");
-    }
-
-}
-
-
-
-
-function windowEventMenuCallback (e) {
-    let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
-    for (let i = 0 ; i < openedMenuElts.length ; i++) {
-        e.stopPropagation();
-        toggleMenu(openedMenuElts[i].parentNode);
-    }
-}
-
-
-
 function tabulationAction(action, targetArray) {
     if (action === "give") {
         for (let i = 0 ; i < targetArray.length ; i++) {
@@ -64,8 +38,6 @@ function hamburgerMenuAction(action) {
 
 
 
-
-let moreElts = document.getElementsByClassName("more");
 
 let hamburgerElt = document.getElementById("hamburger-button");
 let sidebarElt = document.getElementById("sidebar");
@@ -109,34 +81,8 @@ for (let i = 0 ; i < bodyFocusableElts.length ; i++) {
     }
 }
 
-console.log(bodyTabOrderElts);
-
 
 tabulationAction("remove", sidebarTabOrderElts);
-
-
-
-for (let i = 0 ; i < moreElts.length ; i++) {
-    moreElts[i].querySelector("a:first-child").addEventListener("click", function(e) {
-        console.log("Link click")
-        e.preventDefault();
-        toggleMenu(e.currentTarget.parentNode);
-    });
-
-    moreElts[i].addEventListener("focusout", function(e) {
-        console.log("Focus out");
-        toggleMenu(e.currentTarget, "close");
-    });
-}
-
-window.addEventListener("scroll", windowEventMenuCallback);
-
-window.addEventListener("keyup", function (e) {
-    if (e.key == "Escape") {
-        windowEventMenuCallback(e);
-    }
-});
-
 
 hamburgerElt.addEventListener("click", function(e){
     hamburgerMenuAction("toggle");
