@@ -126,6 +126,8 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 #content nav > ul li {
@@ -266,6 +268,10 @@ main {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    #content header h1 {
+        flex-shrink: 0;
     }
 
     #content header nav {
