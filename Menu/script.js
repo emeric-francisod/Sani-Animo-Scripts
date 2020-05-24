@@ -1,10 +1,3 @@
-const FOCUS_ELTS = ["a", "area", "audio", "button", "embed", "form", "iframe", "img", "input", "keygen", "label", "object", "select", "svg", "textarea", "video"];
-const FOCUS_ATTRS = ["contenteditable", "focusable", "tabindex"];
-
-
-
-
-
 function toggleMenu (plusLinkElt, action = "hey!") {
     if (plusLinkElt.classList.contains("opened") && action !== "open" || action === "close") {
         console.log("Menu closing");
@@ -16,9 +9,6 @@ function toggleMenu (plusLinkElt, action = "hey!") {
 
 }
 
-
-
-
 function windowEventMenuCallback (e) {
     let openedMenuElts = document.querySelectorAll(".more.opened ul.submenu");
     for (let i = 0 ; i < openedMenuElts.length ; i++) {
@@ -27,38 +17,18 @@ function windowEventMenuCallback (e) {
     }
 }
 
-
-
-function tabulationAction(action, targetArray) {
-    if (action === "give") {
-        for (let i = 0 ; i < targetArray.length ; i++) {
-            if (targetArray[i][1] === null) {
-                targetArray[i][0].removeAttribute("tabindex");
-            } else {
-                targetArray[i][0].setAttribute("tabindex", targetArray[i][1]);
-            }
-        }
-    } else if (action === "remove") {
-        for (let i = 0 ; i < targetArray.length ; i++) {
-            targetArray[i][0].setAttribute("tabindex", "-1");
-        }
-    }
-}
-
-
-
 function hamburgerMenuAction(action) {
     hamburgerElt.focus();
     if (action === "hide" || action === "toggle" && document.body.classList.contains("opened")) {
         document.body.classList.remove("opened");
         document.body.classList.add("closed");
-        tabulationAction("give", bodyTabOrderElts);
-        tabulationAction("remove", sidebarTabOrderElts);
+        giveTabNavigation(bodyTabOrderElts);
+        removeTabNavigation(sidebarTabOrderElts);
     } else if (action === "show" || action === "toggle" && !document.body.classList.contains("opened")) {
         document.body.classList.add("opened");
         document.body.classList.remove("closed");
-        tabulationAction("remove", bodyTabOrderElts);
-        tabulationAction("give", sidebarTabOrderElts);
+        removeTabNavigation(bodyTabOrderElts);
+        giveTabNavigation(sidebarTabOrderElts);
     }
 }
 
@@ -70,50 +40,12 @@ let moreElts = document.getElementsByClassName("more");
 let hamburgerElt = document.getElementById("hamburger-button");
 let sidebarElt = document.getElementById("sidebar");
 let blurElt = document.getElementById("blur");
+let contentElt = document.getElementById("content");
 
-//Création de la requête pour obtenir tpus les éléments focusables
-let sidebarFocusableEltsQuerry = "";
-let bodyFocusableEltsQuerry = "";
-for (let i = 0 ; i < FOCUS_ELTS.length ; i++) {
-    bodyFocusableEltsQuerry += "#content " + FOCUS_ELTS[i] + ", ";
-    sidebarFocusableEltsQuerry += "#sidebar " + FOCUS_ELTS[i] + ", ";
-}
-for (let i = 0 ; i < FOCUS_ATTRS.length ; i++) {
-    bodyFocusableEltsQuerry += "#content [" + FOCUS_ATTRS[i] + "]";
-    sidebarFocusableEltsQuerry += "#sidebar [" + FOCUS_ATTRS[i] + "]";
-    if (i < FOCUS_ATTRS.length - 1) {
-        bodyFocusableEltsQuerry += ", ";
-        sidebarFocusableEltsQuerry += ", ";
-    }
-}
+let bodyTabOrderElts = getTabElements(contentElt);
+let sidebarTabOrderElts = getTabElements(sidebarElt);
 
-//Récupération des éléments pouvant être tabulés dans la sidebar
-let sidebarFocusableElts = document.querySelectorAll(sidebarFocusableEltsQuerry);
-let sidebarTabOrderElts = [];
-for (let i = 0 ; i < sidebarFocusableElts.length ; i++) {
-    if (sidebarFocusableElts[i].getAttribute("tabindex") !== "-1") {
-        sidebarTabOrderElts.push([sidebarFocusableElts[i], sidebarFocusableElts[i].getAttribute("tabindex")]);
-    }
-}
-
-console.log(sidebarFocusableEltsQuerry);
-console.log(sidebarFocusableElts);
-console.log(sidebarTabOrderElts);
-
-//Récupération des éléments pouvant être tabulés dans le corps
-let bodyFocusableElts = document.querySelectorAll(bodyFocusableEltsQuerry);
-let bodyTabOrderElts = [];
-for (let i = 0 ; i < bodyFocusableElts.length ; i++) {
-    if (bodyFocusableElts[i].getAttribute("tabindex") !== "-1") {
-        bodyTabOrderElts.push([bodyFocusableElts[i], bodyFocusableElts[i].getAttribute("tabindex")]);
-    }
-}
-
-console.log(bodyTabOrderElts);
-
-
-tabulationAction("remove", sidebarTabOrderElts);
-
+removeTabNavigation(sidebarTabOrderElts);
 
 
 for (let i = 0 ; i < moreElts.length ; i++) {
