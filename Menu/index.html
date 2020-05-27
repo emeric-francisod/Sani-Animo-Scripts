@@ -10,7 +10,7 @@
     <div id="content">
         <header>
             <h1>Menu déroulant</h1>
-            <nav>
+            <nav id="menu" class="hamburger-compatible">
                 <ul>
                     <li><a href="#">Lien 1</a></li>
                     <li><a href="#">Lien 2</a></li>
@@ -60,7 +60,7 @@
         </main>
     </div>
 
-    <div id="hamburger-button">
+    <div class="hamburger-menu-button" data-hamburger-menu-target="hamburger-menu">
         <svg viewbox="0 0 64 64" class="hamburger-svg" width="48" height="48">
             <rect x="8" y="12" width="48" height="10" ry="5px"class="hamburger-svg-layer hamburger-svg-layer1"/>
             <rect x="8" y="27" width="48" height="10" ry="5px"class="hamburger-svg-layer hamburger-svg-layer2"/>
@@ -68,7 +68,7 @@
         </svg>
     </div>
 
-    <div id="sidebar">
+    <div id="hamburger-menu" clas="hamburger-menu-wrapper" data-linked-menu="menu">
         <header>
             <h1>Titre de la page</h1>
         </header>
