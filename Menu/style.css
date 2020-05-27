@@ -8,6 +8,16 @@
     }
 }
 
+@keyframes close-menu {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -80%;
+    }
+}
+
 @keyframes top-forward {
     from {
         transform: none;
@@ -178,9 +188,9 @@ body.menu-opened #blur {
     animation: 250ms ease-out 0s 1 normal forwards open-menu;
 }
 
-#hamburger-menu-wrapper.close {
-    display: none;
-    right: -80%;
+#hamburger-menu-wrapper.closed {
+    display: block;
+    animation: 250ms ease-in 0s 1 normal forwards close-menu;
 }
 
 #hamburger-menu-wrapper header {
