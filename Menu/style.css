@@ -100,11 +100,11 @@ body {
     overflow-x: hidden;
 }
 
-body.opened {
+body.menu-opened {
     overflow-y: hidden;
 }
 
-body.opened #content {
+body.menu-opened #content {
     filter: blur(2px);
 }
 
@@ -116,7 +116,7 @@ header {
     padding: 16px 32px;
 }
 
-#content header nav {
+#content header nav#menu {
     display: none;
 }
 
@@ -130,11 +130,11 @@ header {
     align-content: center;
 }
 
-#content nav > ul li {
+#content nav#menu > ul li {
     padding: 0 20px;
 }
 
-#content nav > ul li a {
+#content nav#menu > ul li a {
     color: black;
     text-decoration: none;
 }
@@ -148,15 +148,15 @@ header {
     left: 0;
     background: rgb(0, 0, 0);
     opacity: 0;
-    z-index: 10;
-    transition: opacity 250ms ease-out;
+    z-index: -30;
 }
 
-body.opened #blur {
+body.menu-opened #blur {
     opacity: 0.7;
+    z-index: 30;
 }
 
-#sidebar {
+#hamburger-menu-wrapper {
     display: none;
     position: fixed;
     top: 0;
@@ -165,34 +165,39 @@ body.opened #blur {
     width: 80%;
     height: 100%;
     background-color: rgb(240,206,53);
-    transition: right 250ms ease-in;
 }
 
-body.opened #sidebar {
+#hamburger-menu-wrapper.opened {
+    display: block;
     right: 0;
 }
 
-#sidebar header {
+#hamburger-menu-wrapper.close {
+    display: none;
+    right: -80%;
+}
+
+#hamburger-menu-wrapper header {
     border-bottom: 2px grey solid;
 }
 
-#sidebar nav ul {
+#hamburger-menu-wrapper nav ul {
     list-style-type: none;
     padding: 32px;
     display: flex;
     flex-direction: column;
 }
 
-#sidebar nav ul li {
+#hamburger-menu-wrapper nav ul li {
     padding: 16px 0;
 }
 
-#sidebar nav ul li a {
+#hamburger-menu-wrapper nav ul li a {
     color: black;
     text-decoration: none;
 }
 
-#hamburger-button {
+#hamburger-menu-button {
     display: none;
     position: fixed;
     bottom: 16px;
@@ -204,7 +209,7 @@ body.opened #sidebar {
     border-radius: 50%;
 }
 
-#hamburger-button .hamburger-svg {
+#hamburger-menu-button .hamburger-svg {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -219,27 +224,27 @@ body.opened #sidebar {
     transform-origin: 32px 47px;
 }
 
-body.closed  .hamburger-svg-layer1 {
+#hamburger-menu-button.hamburger  .hamburger-svg-layer1 {
     animation: 250ms ease-in 0s 1 normal forwards top-backward;
 }
 
-body.closed  .hamburger-svg-layer2 {
+#hamburger-menu-button.hamburger  .hamburger-svg-layer2 {
     animation: 250ms ease-in 0s 1 normal forwards middle-backward;
 }
 
-body.closed  .hamburger-svg-layer3 {
+#hamburger-menu-button.hamburger  .hamburger-svg-layer3 {
     animation: 250ms ease-in 0s 1 normal forwards bottom-backward;
 }
 
-body.opened  .hamburger-svg-layer1 {
+#hamburger-menu-button.close  .hamburger-svg-layer1 {
     animation: 250ms ease-in 0s 1 normal forwards top-forward;
 }
 
-body.opened  .hamburger-svg-layer2 {
+#hamburger-menu-button.close  .hamburger-svg-layer2 {
     animation: 250ms ease-in 0s 1 normal forwards middle-forward;
 }
 
-body.opened  .hamburger-svg-layer3 {
+#hamburger-menu-button.close  .hamburger-svg-layer3 {
     animation: 250ms ease-in 0s 1 normal forwards bottom-forward;
 
 }
@@ -253,11 +258,7 @@ main {
         display: block;
     }
 
-    #sidebar {
-        display: block;
-    }
-
-    #hamburger-button {
+    #hamburger-menu-button {
         display: block;
     }
 }

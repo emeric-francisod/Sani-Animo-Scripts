@@ -1,48 +1,42 @@
 (function () {
-    function hamburgerMenuToggle (buttonElt) {
-        if (menuElt.classList.contains("close")) {
+    function hamburgerMenuToggle () {
+        if (hamburgerMenuElt.classList.contains("opened")) {
             hamburgerMenuClose();
         } else {
-            hamburgerMenuOpen(buttonElt);
+            hamburgerMenuOpen();
         }
     }
 
     function hamburgerMenuClose () {
-        let openedMenuElt = document.querySelector(".hamburger-menu-wrapper.opened");
-        let menuTriggerElt = document.querySelector(".hamburger-menu-button[data-hamburger-menu-target=\"" + openedMenuElt.id + "\"]");
-        if (openedMenuElt !== null) {
-            openedMenuElt.classList.add("closed");
-            openedMenuElt.classList.remove("opened");
-            menuTriggerElt.classList.add("hamburger");
-            menuTriggerElt.classList.remove("close");
+        if (hamburgerMenuElt.classList.contains("opened")) {
+            hamburgerMenuElt.classList.add("closed");
+            hamburgerMenuElt.classList.remove("opened");
+            hamburgerButtonElt.classList.add("hamburger");
+            hamburgerButtonElt.classList.remove("close");
             document.body.classList.remove("menu-opened");
             giveTabulation(tabableElements);
         }
     }
 
-    function hamburgerMenuOpen (buttonElt) {
-        let menuElt = document.getElementById(buttonElt.dataset.hamburgerMenuTarget);
-        hamburgerMenuClose();
-        buttonElt.classList.add("close");
-        buttonElt.classList.remove("hamburger");
-        menuElt.classList.add("opened");
-        menuElt.classList.remove("closed");
+    function hamburgerMenuOpen () {
+        hamburgerMenuElt.classList.remove("closed");
+        hamburgerMenuElt.classList.add("opened");
+        hamburgerButtonElt.classList.remove("hamburger");
+        hamburgerButtonElt.classList.add("close");
         document.body.classList.add("menu-opened");
         removeTabulation(tabableElements);
     }
 
-    let hamburgerButtonElts = document.getElementsByClassName("hamburger-menu-button");
+    let hamburgerButtonElt = document.getElementById("hamburger-menu-button");
+    let hamburgerMenuElt = document.getElementById("hamburger-menu-wrapper");
     let blurElt = document.getElementById("blur");
     let contentElt = document.getElementById("content");
 
     let tabableElements = getTabElements(contentElt);
 
-    for (let i = 0 ; i < hamburgerButtonElts.length ; i++) {
-        hamburgerButtonElts[i].addEventListener("click", function(e) {
-            let menuElt = document.getElementById(e.currentTarget);
-            hamburgerMenuToggle(menuElt);
-        });
-    }
+    hamburgerButtonElt.addEventListener("click", function(e) {
+        hamburgerMenuToggle();
+    });
 
     window.addEventListener("keyup", function(e) {
         if (e.key === "Escape") {
