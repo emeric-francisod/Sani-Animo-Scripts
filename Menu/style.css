@@ -116,10 +116,6 @@ header {
     padding: 16px 32px;
 }
 
-#content header nav#menu {
-    display: none;
-}
-
 #content nav > ul {
     list-style-type: none;
     padding: 0;
@@ -161,7 +157,7 @@ body.menu-opened #blur {
     position: fixed;
     top: 0;
     right: -80%;
-    z-index: 20;
+    z-index: 50;
     width: 80%;
     height: 100%;
     background-color: rgb(240,206,53);
@@ -260,6 +256,10 @@ main {
 
     #hamburger-menu-button {
         display: block;
+    }
+
+    .hamburger-compatible {
+        display: none;
     }
 }
 
