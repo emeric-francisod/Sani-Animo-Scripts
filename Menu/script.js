@@ -28,10 +28,6 @@
             svgElt.appendChild(rectangleElt);
             yRectCoord += 15;
         }
-
-        console.log(svgElt);
-        console.log(buttonElt);
-
         buttonElt.appendChild(svgElt);
     }
 
@@ -57,6 +53,7 @@
             hamburgerButtonElt.classList.remove("close");
             document.body.classList.remove("menu-opened");
             giveTabNavigation(tabableElements);
+            removeTabNavigation(hamburgerMenuTabableElements);
         }
     }
 
@@ -67,6 +64,7 @@
         hamburgerButtonElt.classList.add("close");
         document.body.classList.add("menu-opened");
         removeTabNavigation(tabableElements);
+        giveTabNavigation(hamburgerMenuTabableElements);
     }
 
     let hamburgerButtonElt = document.getElementById("hamburger-menu-button");
@@ -78,6 +76,7 @@
     initializeHamburgerButton(hamburgerButtonElt);
 
     let tabableElements = getTabElements(contentElt);
+    let hamburgerMenuTabableElements = getTabElements(hamburgerMenuElt);
 
     hamburgerButtonElt.addEventListener("click", function(e) {
         hamburgerMenuToggle();
