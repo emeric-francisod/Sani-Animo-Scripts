@@ -8,6 +8,33 @@
         }
     }
 
+    function initializeHamburgerButton(buttonElt) {
+        let svgElt = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svgElt.setAttribute("viewBox", "0 0 64 64");
+        svgElt.setAttribute("width", "48");
+        svgElt.setAttribute("height", "48");
+        svgElt.classList.add("hamburger-svg");
+
+        let yRectCoord = 12;
+
+        for (let i = 1 ; i <= 3 ; i++) {
+            let rectangleElt = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rectangleElt.setAttribute("x", "8");
+            rectangleElt.setAttribute("y", yRectCoord);
+            rectangleElt.setAttribute("width", "48");
+            rectangleElt.setAttribute("height", "10");
+            rectangleElt.setAttribute("ry", "5px");
+            rectangleElt.classList.add("hamburger-svg-layer" + i);
+            svgElt.appendChild(rectangleElt);
+            yRectCoord += 15;
+        }
+
+        console.log(svgElt);
+        console.log(buttonElt);
+
+        buttonElt.appendChild(svgElt);
+    }
+
     function resetPage() {
         hamburgerMenuClose();
         hamburgerMenuElt.classList.remove("closed");
@@ -48,6 +75,7 @@
     let contentElt = document.getElementById("content");
 
     initializeWrapper(hamburgerMenuElt);
+    initializeHamburgerButton(hamburgerButtonElt);
 
     let tabableElements = getTabElements(contentElt);
 
