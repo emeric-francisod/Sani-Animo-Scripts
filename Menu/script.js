@@ -1,4 +1,13 @@
 (function () {
+    function initializeWrapper(wrapperElt) {
+        let menuId = wrapperElt.dataset.linkedMenu;
+        if (menuId !== undefined) {
+            let linkedMenuElt = document.getElementById(menuId).cloneNode(true);
+            linkedMenuElt.classList.remove("hamburger-compatible");
+            wrapperElt.appendChild(linkedMenuElt);
+        }
+    }
+
     function resetPage() {
         hamburgerMenuClose();
         hamburgerMenuElt.classList.remove("closed");
@@ -20,7 +29,7 @@
             hamburgerButtonElt.classList.add("hamburger");
             hamburgerButtonElt.classList.remove("close");
             document.body.classList.remove("menu-opened");
-            giveTabulation(tabableElements);
+            giveTabNavigation(tabableElements);
         }
     }
 
@@ -30,13 +39,15 @@
         hamburgerButtonElt.classList.remove("hamburger");
         hamburgerButtonElt.classList.add("close");
         document.body.classList.add("menu-opened");
-        removeTabulation(tabableElements);
+        removeTabNavigation(tabableElements);
     }
 
     let hamburgerButtonElt = document.getElementById("hamburger-menu-button");
     let hamburgerMenuElt = document.getElementById("hamburger-menu-wrapper");
     let blurElt = document.getElementById("blur");
     let contentElt = document.getElementById("content");
+
+    initializeWrapper(hamburgerMenuElt);
 
     let tabableElements = getTabElements(contentElt);
 
