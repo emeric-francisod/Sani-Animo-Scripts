@@ -1,16 +1,17 @@
 (function() {
-    let popinObjects = [];
+    let popinObjects = new Popins;
     let backgroundElt = document.getElementById("background");
     let popinTriggerElts = document.getElementsByClassName("popin-trigger");
     let contentTabElts = getTabElements(document.getElementById("content"));
 
     for (let i = 0 ; i < popinTriggerElts.length ; i++) {
         let targetElt = document.getElementById(popinTriggerElts[i].dataset.popinTarget);
-        let newPopin = new Popin(targetElt, popinTriggerElts[i], backgroundElt, contentTabElts)
-        popinObjects.push(newPopin);
-        popinTriggerElts[i].addEventListener("click", (function(e) {
-            this.toggle();
-        }).bind(newPopin));
+        let newPopin = new Popin(targetElt, popinTriggerElts[i], backgroundElt, contentTabElts);
+        let triggerId = popinTriggerElts[i].id;
+        popinObjects.push(newPopin, triggerId);
+        popinTriggerElts[i].addEventListener("click", (function(id, e) {
+            this.toggle(triggerId);
+        }).bind(popinObjects, triggerId));
     }
 
     console.log(popinObjects);
