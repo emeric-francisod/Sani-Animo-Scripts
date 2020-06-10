@@ -4,10 +4,11 @@ function Popin(targetElt, triggerElt, backgroundElt, contentTabElts) {
     this.backgroundElt = backgroundElt;
     this.contentTabElts = contentTabElts;
     this.popinTabElts = getTabElements(this.targetElt);
+    this.opened = false;
 }
 
 Popin.prototype.open = function() {
-    if (!this.targetElt.classList.contains("opened")) {
+    if (!this.opened) {
         this.targetElt.classList.add("opened");
         this.targetElt.classList.remove("closed");
         this.triggerElt.classList.add("target-opened");
@@ -15,11 +16,12 @@ Popin.prototype.open = function() {
         document.body.classList.add("popin-opened");
         removeTabNavigation(this.contentTabElts);
         giveTabNavigation(this.popinTabElts);
+        this.opened = true;
     }
 }
 
 Popin.prototype.close = function() {
-    if (this.targetElt.classList.contains("opened")) {
+    if (this.opened) {
         this.targetElt.classList.remove("opened");
         this.targetElt.classList.add("closed");
         this.triggerElt.classList.remove("target-opened");
@@ -27,11 +29,12 @@ Popin.prototype.close = function() {
         document.body.classList.remove("popin-opened");
         giveTabNavigation(this.contentTabElts);
         removeTabNavigation(this.popinTabElts);
+        this.opened = false;
     }
 }
 
 Popin.prototype.toggle = function() {
-    if (this.targetElt.classList.contains("opened")) {
+    if (this.opened) {
         this.close();
     } else {
         this.open();
