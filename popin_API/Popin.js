@@ -1,4 +1,4 @@
-function Popin(targetElt, triggerElt, bacgroundElt, contentTabElts) {
+function Popin(targetElt, triggerElt, backgroundElt, contentTabElts) {
     this.targetElt = targetElt;
     this.triggerElt = triggerElt;
     this.backgroundElt = backgroundElt;

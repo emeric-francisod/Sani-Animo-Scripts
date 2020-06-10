@@ -18,7 +18,7 @@
 - Les déclencheurs doivent posséder l'attribut `data-popin-target` contenant l'id de la cible.
 - le contenu principal doit être placé dans un élément `#content`. Cet élément peut contenir des déclencheurs mais pas de cibles.
 - Les cibles doivent être insérées en dehors du contenu.
-- Un élément `#blur` doit être présent en dehors du contenu.
+- Un élément `#background` doit être présent en dehors du contenu.
 - En position initiale, aucun élément ne possède de classe et les popins ne sont pas présents sur la page (`display: none;`). En cas de redimensionnement de la page, cet état doit être de nouveau atteint.
 - Lorsque qu'un popin est ouvert:
     - Le déclencheur possède la classe `.target-opened`.

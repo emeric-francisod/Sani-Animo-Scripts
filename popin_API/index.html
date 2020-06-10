@@ -27,6 +27,11 @@
         </header>
 
         <main>
+            <div>
+                <button class="popin-trigger" data-popin-target="target1" id="trigger1">Target 1</button>
+                <button class="popin-trigger" data-popin-target="target2" id="trigger2">Target 2</button>
+                <button class="popin-trigger" data-popin-target="target3" id="trigger3">Target 3</button>
+            </div>
             <section>
                 <h2>Un titre particulier</h2>
                 <p>Un peu de <a href="#">texte</a> qui raconte n'importe quoi. </p>
@@ -60,7 +65,20 @@
         </main>
     </div>
 
-    <div id="blur"></div>
+    <div id="background"></div>
+
+    <div class="popin-target" id="target1">
+        <h2 tabindex="6">Titre du popin</h2>
+        <p>Un peu de <a href="#">texte</a> dans le popin</p>
+    </div>
+    <div class="popin-target" id="target2">
+        <h2 tabindex="6">Titre du popin</h2>
+        <p>Un peu de <a href="#">texte</a> dans le popin</p>
+    </div>
+    <div class="popin-target" id="target3">
+        <h2 tabindex="6">Titre du popin</h2>
+        <p>Un peu de <a href="#">texte</a> dans le popin</p>
+    </div>
 
     <script src="script.1.js"></script>
     <script src="Popin.js"></script>
