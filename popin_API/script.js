@@ -6,7 +6,11 @@
 
     for (let i = 0 ; i < popinTriggerElts.length ; i++) {
         let targetElt = document.getElementById(popinTriggerElts[i].dataset.popinTarget);
-        popinObjects.push(new Popin(targetElt, popinTriggerElts[i], backgroundElt, contentTabElts));
+        let newPopin = new Popin(targetElt, popinTriggerElts[i], backgroundElt, contentTabElts)
+        popinObjects.push(newPopin);
+        popinTriggerElts[i].addEventListener("click", (function(e) {
+            this.toggle();
+        }).bind(newPopin));
     }
 
     console.log(popinObjects);
