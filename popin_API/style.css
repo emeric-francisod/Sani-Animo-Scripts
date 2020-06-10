@@ -39,3 +39,40 @@ header {
 main {
     padding: 32px 50px;
 }
+
+.popin-trigger {
+    background-color: yellow;
+}
+
+.popin-trigger.target-closed {
+    background-color: red;
+}
+
+.popin-trigger.target-opened {
+    background-color: green;
+}
+
+.popin-target {
+    background-color: red;
+}
+
+.popin-target.opened {
+    background-color: green;
+}
+
+.popin-target.closed {
+    background-color: yellow;
+}
+
+#background {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+}
+
+body.popin-opened #background {
+    background-color: black;
+}
