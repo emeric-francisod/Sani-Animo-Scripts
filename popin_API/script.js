@@ -1,5 +1,5 @@
 (function() {
-    let popinObjects = new Popins;
+    let popinObjects = new Popins();
     let backgroundElt = document.getElementById("background");
     let popinTriggerElts = document.getElementsByClassName("popin-trigger");
     let contentTabElts = getTabElements(document.getElementById("content"));
@@ -14,5 +14,17 @@
         }).bind(popinObjects, triggerId));
     }
 
-    console.log(popinObjects);
+    window.addEventListener("keyup", function(e) {
+        if (e.key === "Escape") {
+            popinObjects.close();
+        }
+    });
+
+    window.addEventListener("resize", function(e) {
+        popinObjects.reset();
+    });
+
+    backgroundElt.addEventListener("click", function() {
+        popinObjects.close();
+    });
 })();
