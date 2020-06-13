@@ -40,27 +40,27 @@ main {
     padding: 32px 50px;
 }
 
-.popin-trigger {
+.modal-trigger {
     background-color: yellow;
 }
 
-.popin-trigger.target-closed {
+.modal-trigger.target-closed {
     background-color: red;
 }
 
-.popin-trigger.target-opened {
+.modal-trigger.target-opened {
     background-color: green;
 }
 
-.popin-target {
+.modal-target {
     background-color: red;
 }
 
-.popin-target.opened {
+.modal-target.opened {
     background-color: green;
 }
 
-.popin-target.closed {
+.modal-target.closed {
     background-color: yellow;
 }
 
@@ -73,6 +73,6 @@ main {
     background-color: white;
 }
 
-body.popin-opened #background {
+body.modal-opened #background {
     background-color: black;
 }

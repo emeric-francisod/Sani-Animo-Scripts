@@ -1,39 +1,39 @@
-function Popin(targetElt, triggerElt, backgroundElt, contentTabElts) {
+function Modal(targetElt, triggerElt, backgroundElt, contentTabElts) {
     this.targetElt = targetElt;
     this.triggerElt = triggerElt;
     this.backgroundElt = backgroundElt;
     this.contentTabElts = contentTabElts;
-    this.popinTabElts = getTabElements(this.targetElt);
+    this.modalTabElts = getTabElements(this.targetElt);
     this.opened = false;
 }
 
-Popin.prototype.open = function() {
+Modal.prototype.open = function() {
     if (!this.opened) {
         this.targetElt.classList.add("opened");
         this.targetElt.classList.remove("closed");
         this.triggerElt.classList.add("target-opened");
         this.triggerElt.classList.remove("target-closed");
-        document.body.classList.add("popin-opened");
+        document.body.classList.add("modal-opened");
         removeTabNavigation(this.contentTabElts);
-        giveTabNavigation(this.popinTabElts);
+        giveTabNavigation(this.modalTabElts);
         this.opened = true;
     }
 }
 
-Popin.prototype.close = function() {
+Modal.prototype.close = function() {
     if (this.opened) {
         this.targetElt.classList.remove("opened");
         this.targetElt.classList.add("closed");
         this.triggerElt.classList.remove("target-opened");
         this.triggerElt.classList.add("target-closed");
-        document.body.classList.remove("popin-opened");
+        document.body.classList.remove("modal-opened");
         giveTabNavigation(this.contentTabElts);
-        removeTabNavigation(this.popinTabElts);
+        removeTabNavigation(this.modalTabElts);
         this.opened = false;
     }
 }
 
-Popin.prototype.toggle = function() {
+Modal.prototype.toggle = function() {
     if (this.opened) {
         this.close();
     } else {
@@ -41,7 +41,7 @@ Popin.prototype.toggle = function() {
     }
 }
 
-Popin.prototype.reset = function() {
+Modal.prototype.reset = function() {
     this.close();
     this.targetElt.classList.remove("closed");
     this.triggerElt.classList.remove("target-closed");
