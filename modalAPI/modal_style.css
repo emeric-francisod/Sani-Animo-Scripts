@@ -26,8 +26,6 @@ body.modal-opened #background {
 .modal-target {
     display: none;
     position: fixed;
-    width: 0;
-    height: 0;
     top: -100%;
     left: -100%;
     z-index: 100;
@@ -38,8 +36,6 @@ body.modal-opened #background {
 }
 
 .modal-target.opened {
-    width: 60%;
-    height: 75%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
