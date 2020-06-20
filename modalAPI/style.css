@@ -53,26 +53,7 @@ main {
 }
 
 .modal-target {
-    background-color: red;
-}
-
-.modal-target.opened {
-    background-color: green;
-}
-
-.modal-target.closed {
-    background-color: yellow;
-}
-
-#background {
-    width: 100px;
-    height: 100px;
-    position: fixed;
-    right: 0;
-    bottom: 0;
+    box-sizing: border-box;
+    padding: 50px 75px;
     background-color: white;
-}
-
-body.modal-opened #background {
-    background-color: black;
 }
