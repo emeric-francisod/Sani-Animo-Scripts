@@ -17,6 +17,7 @@
 - Déclencheurs et cibles doivent posséder un id.
 - Les déclencheurs doivent posséder l'attribut `data-modal-target` contenant l'id de la cible.
 - le contenu principal doit être placé dans un élément `#content`. Cet élément peut contenir des déclencheurs mais pas de cibles.
+- On peut utiliser un ou plusieurs boutons de fermeture. Ils doivent posséder la classe `modal-close-button`.
 - Les cibles doivent être insérées en dehors du contenu.
 - Un élément `#background` doit être présent en dehors du contenu.
 - En position initiale, aucun élément ne possède de classe et les boîtes modales ne sont pas présents sur la page (`display: none;`). En cas de redimensionnement de la page, cet état doit être de nouveau atteint.
@@ -28,3 +29,4 @@
     - Le déclencheur possède la classe `.target-closed`.
     - La cible possède la classe `.closed`.
 - Une boîte modale fermée ne disparaît pas de l'écran mais est rendu invisible. On peut réduire son opacité, le mettre derrière le contenu, le mettre loin du bord de la page, ...
+- Pour utiliser cette API, il faut personnaliser les styles. On peut choisir la taille des éléments, leur apparence et leur ajouter des animations à l'ouverture et à la fermeture. C'est surtout important pour la boîte modale, le déclencheur et le bouton de fermeture. Seul le fond ne doit pas être personnalisé.

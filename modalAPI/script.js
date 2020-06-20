@@ -2,6 +2,7 @@
     let modalObjects = new Modals();
     let backgroundElt = document.getElementById("background");
     let modalTriggerElts = document.getElementsByClassName("modal-trigger");
+    let modalCloseButtonElt = document.getElementsByClassName("modal-close-button");
     let contentTabElts = getTabElements(document.getElementById("content"));
 
     for (let i = 0 ; i < modalTriggerElts.length ; i++) {
@@ -27,4 +28,10 @@
     backgroundElt.addEventListener("click", function() {
         modalObjects.close();
     });
+
+    for (let i = 0 ; i < modalCloseButtonElt.length ; i++) {
+        modalCloseButtonElt[i].addEventListener("click", function(e) {
+            modalObjects.close();
+        });
+    }
 })();
