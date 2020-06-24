@@ -16,3 +16,6 @@ L'ajout se fait de manière dynamique à l'aide de classes et de données.
 
 ## [Navigation par tabulation](./tabulation/PROJECT.md)
 Contient des fonctions permettant d'autoriser ou non la navigation avec la touche tabulation dans une partie de la page web.
+
+## [Gestion de boîtes modales](./modalAPI/PROJECT.md)
+Contient des fonctions permettant d'ajouter et de gérer les boîtes modales.

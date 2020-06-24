@@ -19,7 +19,7 @@
 - le contenu principal doit être placé dans un élément `#content`. Cet élément peut contenir des déclencheurs mais pas de cibles.
 - On peut utiliser un ou plusieurs boutons de fermeture. Ils doivent posséder la classe `modal-close-button`.
 - Les cibles doivent être insérées en dehors du contenu.
-- Un élément `#background` doit être présent en dehors du contenu.
+- Un élément `#background` sera créé à l'exécution du script.
 - En position initiale, aucun élément ne possède de classe et les boîtes modales ne sont pas présents sur la page (`display: none;`). En cas de redimensionnement de la page, cet état doit être de nouveau atteint.
 - Lorsque qu'une boîte modals est ouverte:
     - Le déclencheur possède la classe `.target-opened`.
