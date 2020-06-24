@@ -41,6 +41,4 @@ Les petits écrans ont le droit à un menu de type hamburger.
 - Le conteneur du menu hamburger doit posséder l'id `#hamburger-menu-wrapper`. Il peut être stylisé comme souhaité. On peut lui donner l'attribut `data-linked-menu` pour le remplir automatiquement avec les liens du menu lié (utiliser l'id du menu).
 - Les menus remplacés doivent posséder la classe `.hamburger-compatible` pour pouvoir être cachés.
 - Un élément bloc avec l'id `#blur` doit également est présent en dehors du contenu.
-- Par défaut le menu est caché et inaccessible avec `display: none;`. L'affichage se fait avec l'ajout de la classe `.opened` au menu, qui va le faire apparaître et déclencher l'animation d'ouverture. Pour la fermeture, le menu reçoit la classe `.closed`. Cette classe n'est pas présente au chargement de la page et est retirée au redimensionnement de la fenêtre.
-- L'état du bouton varie en fonction d'une classe. Avec la classe `.close`, animation en croix. Avec la classe `.hamburger`, animation vers hamburger.
-- Lorsqu'un menu est ouvert, l'élément body de la page récupèrera la classe `.menu-opened` ce qui permet entre autre d'afficher l'élément d'assombrissement ou de rendre flou le contenu. Il permettra aussi d'ajouter d'autres comportements.
+- Pour gérer l'apparition et la disparition du menu, nous utiliserons l'APImodal créée.

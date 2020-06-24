@@ -105,40 +105,8 @@
 
 
 
-
-
-
-
-html {
-    min-height: 100%;
-}
-
-body {
-    background-image: radial-gradient(farthest-side, rgb(57, 197, 240) 0%, rgb(0, 81, 255) 75%, rgb(2, 0, 150)100%);
-    background-repeat: no-repeat;
-    margin: 0;
-    overflow-x: hidden;
-}
-
-body.menu-opened {
-    overflow-y: hidden;
-}
-
-body.menu-opened #content {
-    filter: blur(2px);
-}
-
-header {
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    background-color: rgb(240,206,53);
-    padding: 16px 32px;
-}
-
-#content nav > ul {
+.hamburger-compatible ul {
     list-style-type: none;
-    padding: 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -146,83 +114,38 @@ header {
     align-content: center;
 }
 
-#content nav#menu > ul li {
+.hamburger-compatible ul {
+    padding: 0;
+}
+
+.hamburger-compatible > ul li {
     padding: 0 20px;
 }
 
-#content nav#menu > ul li a {
-    color: black;
-    text-decoration: none;
-}
-
-#blur {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgb(0, 0, 0);
-    opacity: 0;
-    z-index: -30;
-    transition: opacity 250ms ease-out;
-}
-
-body.menu-opened #blur {
-    opacity: 0.7;
-    z-index: 30;
-}
-
 #hamburger-menu-wrapper {
-    display: none;
-    position: fixed;
     top: 0;
     right: -80%;
-    z-index: 50;
+    left: initial;
     width: 80%;
     height: 100%;
-    background-color: rgb(240,206,53);
 }
 
 #hamburger-menu-wrapper.opened {
-    display: block;
     animation: 250ms ease-out 0s 1 normal forwards open-menu;
 }
 
 #hamburger-menu-wrapper.closed {
-    display: block;
     animation: 250ms ease-in 0s 1 normal forwards close-menu;
-}
-
-#hamburger-menu-wrapper header {
-    border-bottom: 2px grey solid;
-}
-
-#hamburger-menu-wrapper nav ul {
-    list-style-type: none;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-}
-
-#hamburger-menu-wrapper nav ul li {
-    padding: 16px 0;
-}
-
-#hamburger-menu-wrapper nav ul li a {
-    color: black;
-    text-decoration: none;
 }
 
 #hamburger-menu-button {
     display: none;
     position: fixed;
-    bottom: 16px;
-    right: 32px;
+    z-index: 150;
     width: 64px;
     height: 64px;
-    background-color: rgb(240, 206, 53);
-    z-index: 100;
-    border-radius: 50%;
+    right: 32px;
+    bottom: 16px;
 }
 
 #hamburger-menu-button .hamburger-svg {
@@ -240,37 +163,33 @@ body.menu-opened #blur {
     transform-origin: 32px 47px;
 }
 
-#hamburger-menu-button.hamburger  .hamburger-svg-layer1 {
+#hamburger-menu-button.target-closed  .hamburger-svg-layer1 {
     animation: 250ms ease-in 0s 1 normal forwards top-backward;
 }
 
-#hamburger-menu-button.hamburger  .hamburger-svg-layer2 {
+#hamburger-menu-button.target-closed  .hamburger-svg-layer2 {
     animation: 250ms ease-in 0s 1 normal forwards middle-backward;
 }
 
-#hamburger-menu-button.hamburger  .hamburger-svg-layer3 {
+#hamburger-menu-button.target-closed  .hamburger-svg-layer3 {
     animation: 250ms ease-in 0s 1 normal forwards bottom-backward;
 }
 
-#hamburger-menu-button.close  .hamburger-svg-layer1 {
+#hamburger-menu-button.target-opened  .hamburger-svg-layer1 {
     animation: 250ms ease-in 0s 1 normal forwards top-forward;
 }
 
-#hamburger-menu-button.close  .hamburger-svg-layer2 {
+#hamburger-menu-button.target-opened  .hamburger-svg-layer2 {
     animation: 250ms ease-in 0s 1 normal forwards middle-forward;
 }
 
-#hamburger-menu-button.close  .hamburger-svg-layer3 {
+#hamburger-menu-button.target-opened  .hamburger-svg-layer3 {
     animation: 250ms ease-in 0s 1 normal forwards bottom-forward;
 
 }
 
-main {
-    padding: 32px 50px;
-}
-
 @media screen and (max-width: 769px) {
-    #blur {
+    #background {
         display: block;
     }
 
@@ -284,18 +203,7 @@ main {
 }
 
 @media screen and (min-width: 769px) {
-    #content header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    #content header h1 {
-        flex-shrink: 0;
-    }
-
-    #content header nav {
+    .hamburger-compatible {
         display: block;
     }
 }
