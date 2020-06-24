@@ -35,9 +35,12 @@
 
     let hamburgerButtonElt = document.getElementById("hamburger-menu-button");
     let hamburgerMenuElt = document.getElementById("hamburger-menu-wrapper");
-    let contentElt = document.getElementById("content");
 
     initializeWrapper(hamburgerMenuElt);
     initializeHamburgerButton(hamburgerButtonElt);
+
+    hamburgerButtonElt.classList.add("modal-trigger");
+    hamburgerMenuElt.classList.add("modal-target");
+    hamburgerButtonElt.dataset.modalTarget = hamburgerMenuElt.id;
 
 })();
