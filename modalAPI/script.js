@@ -1,9 +1,12 @@
 (function() {
     let modalObjects = new Modals();
-    let backgroundElt = document.getElementById("background");
+    let backgroundElt = document.createElement("div");
     let modalTriggerElts = document.getElementsByClassName("modal-trigger");
     let modalCloseButtonElt = document.getElementsByClassName("modal-close-button");
     let contentTabElts = getTabElements(document.getElementById("content"));
+
+    backgroundElt.id = "background";
+    document.body.appendChild(backgroundElt);
 
     for (let i = 0 ; i < modalTriggerElts.length ; i++) {
         let targetElt = document.getElementById(modalTriggerElts[i].dataset.modalTarget);
