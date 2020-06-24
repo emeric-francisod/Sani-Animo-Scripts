@@ -34,9 +34,3 @@ body.modal-opened #background {
 .modal-target.opened, .modal-target.closed {
     display: block;
 }
-
-.modal-target.opened {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}

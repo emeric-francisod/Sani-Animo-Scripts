@@ -29,4 +29,4 @@
     - Le déclencheur possède la classe `.target-closed`.
     - La cible possède la classe `.closed`.
 - Une boîte modale fermée ne disparaît pas de l'écran mais est rendu invisible. On peut réduire son opacité, le mettre derrière le contenu, le mettre loin du bord de la page, ...
-- Pour utiliser cette API, il faut personnaliser les styles. On peut choisir la taille des éléments, leur apparence et leur ajouter des animations à l'ouverture et à la fermeture. C'est surtout important pour la boîte modale, le déclencheur et le bouton de fermeture. Seul le fond ne doit pas être personnalisé.
+- Pour utiliser cette API, il faut personnaliser les styles. On peut choisir la taille des éléments, leur position, leur apparence et leur ajouter des animations à l'ouverture et à la fermeture. C'est surtout important pour la boîte modale, le déclencheur et le bouton de fermeture. Seul le fond ne doit pas être personnalisé.
