@@ -9,11 +9,11 @@ function callback(jsonString) {
     wrapperElt.appendChild(pElt);
 }
 
-let POSTurl = post.php;
+let POSTurl = "post.php";
 let formElt = document.getElementById("form");
 
 formElt.addEventListener("submit", function(e) {
     e.preventDefault();
-    let formData = new formData(e.currentTarget);
-    ajaxPost(POSTurl, formData, callback, false);
+    let data = new FormData(e.currentTarget);
+    ajaxPost(POSTurl, data, callback, false);
 });
