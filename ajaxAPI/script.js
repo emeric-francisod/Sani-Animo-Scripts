@@ -10,10 +10,16 @@ function callback(jsonString) {
 }
 
 let POSTurl = "post.php";
+let GETurl = "get.php";
+let buttonElt = document.getElementById("button");
 let formElt = document.getElementById("form");
 
 formElt.addEventListener("submit", function(e) {
     e.preventDefault();
     let data = new FormData(e.currentTarget);
     ajaxPost(POSTurl, data, callback, false);
+});
+
+buttonElt.addEventListener("click", function() {
+    ajaxGet(GETurl, callback);
 });
