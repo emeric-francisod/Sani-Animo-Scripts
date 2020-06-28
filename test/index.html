@@ -30,13 +30,72 @@
                 </ul>
             </nav>
         </header>
+
+        <main>
+            <div>
+                <button class="modal-trigger" data-modal-target="target1" id="trigger1">Target 1</button>
+                <button class="modal-trigger" data-modal-target="target2" id="trigger2">Target 2</button>
+                <button class="modal-trigger" data-modal-target="target3" id="trigger3">Target 3</button>
+            </div>
+
+            <section>
+                <h2>Un titre particulier</h2>
+                <p>Un peu de <a href="#">texte</a> qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+            <section>
+                <h2 contenteditable>Un titre particulier</h2>
+                <p>Un peu de texte qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+            <section>
+                <h2>Un titre particulier</h2>
+                <p>Un peu de texte qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+            <section>
+                <h2>Un titre particulier</h2>
+                <p>Un peu de texte qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+            <section>
+                <h2>Un titre particulier</h2>
+                <p>Un peu de texte qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+            <section>
+                <h2>Un titre particulier</h2>
+                <p>Un peu de texte qui raconte n'importe quoi. </p>
+                <p>Bibidi babidi bou!!!</p>
+            </section>
+        </main>
     </div>
+
+    <div class="modal-target" id="target1">
+        <span class="modal-close-button"></span>
+        <h2 tabindex="6">Titre du modal</h2>
+        <p>Un peu de <a href="#">texte</a> dans le modal</p>
+    </div>
+    <div class="modal-target" id="target2">
+        <span class="modal-close-button"></span>
+        <h2 tabindex="6">Titre du modal</h2>
+        <p>Un peu de <a href="#">texte</a> dans le modal</p>
+    </div>
+    <div class="modal-target" id="target3">
+        <span class="modal-close-button"></span>
+        <h2 tabindex="6">Titre du modal</h2>
+        <p>Un peu de <a href="#">texte</a> dans le modal</p>
+    </div>
+
+    <div id="hamburger-menu-button"></div>
+
+    <div id="hamburger-menu-wrapper" data-linked-menu="main-menu"></div>
 
     <script src="../src/scripts/tab_nav_api.js"></script>
     <script src="../src/scripts/ajax_api.js"></script>
+    <script src="../src/scripts/menu_api.js"></script>
     <script src="../src/scripts/Modal.js"></script>
     <script src="../src/scripts/Modals.js"></script>
     <script src="../src/scripts/modal_api.js"></script>
-    <script src="../src/scripts/menu_api.js"></script>
 </body>
 </html>

@@ -125,7 +125,7 @@
 #hamburger-menu-wrapper {
     top: 0;
     right: -80%;
-    left: initial;
+    /* left: initial; */
     width: 80%;
     height: 100%;
 }
