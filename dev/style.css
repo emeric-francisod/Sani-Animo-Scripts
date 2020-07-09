@@ -3,13 +3,46 @@
     background: blue;
     width: 500px;
     height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .sas-carousel-wrapper img {
     height: 200px;
     width: auto;
     position: absolute;
-    left: 50%;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
+    transition: transform 500ms ease-in-out;
+}
+
+.sas-carousel-wrapper img.sas-carousel-current-image {
+    z-index: 10;
+}
+
+.sas-carousel-wrapper img.sas-carousel-prev-image {
+    opacity: 0.7;
+    transform: translate(-150%, -50%) scale(0.7);
+    z-index: 7;
+}
+
+.sas-carousel-wrapper img.sas-carousel-next-image {
+    opacity: 0.7;
+    transform: translate(50%, -50%) scale(0.7);
+    z-index: 7;
+}
+
+.sas-carousel-wrapper img.sas-carousel-prev-hidden {
+    opacity: 0;
+    transform: translate(-200%, -50%) scale(0.2);
+    z-index: 5;
+}
+
+.sas-carousel-wrapper img.sas-carousel-next-hidden {
+    opacity: 0;
+    transform: translate(100%, -50%) scale(0.2);
+    z-index: 5;
 }
