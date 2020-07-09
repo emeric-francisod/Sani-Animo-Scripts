@@ -46,23 +46,3 @@
     transform: translate(100%, -50%) scale(0.2);
     z-index: 5;
 }
-
-img.sas-left-1st {
-    opacity: 0.5;
-}
-
-img.sas-left-2nd {
-    opacity: 0.25;
-}
-
-img.sas-right-1st {
-    opacity: 0.5;
-}
-
-img.sas-right-2nd {
-    opacity: 0.25;
-}
-
-img.sas-not-visible {
-    display: none;
-}
