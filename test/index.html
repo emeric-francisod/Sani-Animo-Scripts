@@ -7,12 +7,12 @@
     <title>Test des scripts de Sani-Animo</title>
 </head>
 <body>
-    <div id="content">
+    <div id="sas-content">
         <header>
             <h1>Tests des scrips</h1>
             <p>Ce fichier est une simulation de page web utilisant l'ensemble des API utilisées par le site Sani Animo.</p>
 
-            <nav class="hamburger-compatible" id="main-menu">
+            <nav class="sas-hamburger-compatible" id="main-menu">
                 <ul>
                     <li><a href="#">Lien 1</a></li>
                     <li><a href="#">Lien 2</a></li>
@@ -32,9 +32,9 @@
 
         <main>
             <div>
-                <button class="modal-trigger" data-modal-target="target1" id="trigger1">Target 1</button>
-                <button class="modal-trigger" data-modal-target="target2" id="trigger2">Target 2</button>
-                <button class="modal-trigger" data-modal-target="target3" id="trigger3">Target 3</button>
+                <button class="sas-modal-trigger" data-sas-modal-target="target1" id="trigger1">Target 1</button>
+                <button class="sas-modal-trigger" data-sas-modal-target="target2" id="trigger2">Target 2</button>
+                <button class="sas-modal-trigger" data-sas-modal-target="target3" id="trigger3">Target 3</button>
             </div>
 
             <section>
@@ -70,25 +70,25 @@
         </main>
     </div>
 
-    <div class="modal-target" id="target1">
-        <span class="modal-close-button"></span>
+    <div class="sas-modal-target" id="target1">
+        <span class="sas-modal-close-button"></span>
         <h2 tabindex="6">Titre du modal</h2>
         <p>Un peu de <a href="#">texte</a> dans le modal</p>
     </div>
-    <div class="modal-target" id="target2">
-        <span class="modal-close-button"></span>
+    <div class="sas-modal-target" id="target2">
+        <span class="sas-modal-close-button"></span>
         <h2 tabindex="6">Titre du modal</h2>
         <p>Un peu de <a href="#">texte</a> dans le modal</p>
     </div>
-    <div class="modal-target" id="target3">
-        <span class="modal-close-button"></span>
+    <div class="sas-modal-target" id="target3">
+        <span class="sas-modal-close-button"></span>
         <h2 tabindex="6">Titre du modal</h2>
         <p>Un peu de <a href="#">texte</a> dans le modal</p>
     </div>
 
-    <div id="hamburger-menu-button"></div>
+    <div id="sas-hamburger-menu-button"></div>
 
-    <div id="hamburger-menu-wrapper" data-linked-menu="main-menu"></div>
+    <div id="sas-hamburger-menu-wrapper" data-sas-linked-menu="main-menu"></div>
 
     <script src="../src/scripts/sas-script.js"></script>
 </body>

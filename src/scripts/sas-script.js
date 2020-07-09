@@ -96,10 +96,10 @@
 
 
     function initializeWrapper(wrapperElt) {
-        let menuId = wrapperElt.dataset.linkedMenu;
+        let menuId = wrapperElt.dataset.sasLinkedMenu;
         if (menuId !== undefined) {
             let linkedMenuElt = document.getElementById(menuId).cloneNode(true);
-            linkedMenuElt.classList.remove("hamburger-compatible");
+            linkedMenuElt.classList.remove("sas-hamburger-compatible");
             wrapperElt.appendChild(linkedMenuElt);
         }
     }
@@ -109,7 +109,7 @@
         svgElt.setAttribute("viewBox", "0 0 64 64");
         svgElt.setAttribute("width", "48");
         svgElt.setAttribute("height", "48");
-        svgElt.classList.add("hamburger-svg");
+        svgElt.classList.add("sas-hamburger-svg");
 
         let yRectCoord = 12;
 
@@ -120,7 +120,7 @@
             rectangleElt.setAttribute("width", "48");
             rectangleElt.setAttribute("height", "10");
             rectangleElt.setAttribute("ry", "5px");
-            rectangleElt.classList.add("hamburger-svg-layer" + i);
+            rectangleElt.classList.add("sas-hamburger-svg-layer" + i);
             svgElt.appendChild(rectangleElt);
             yRectCoord += 15;
         }
@@ -129,15 +129,15 @@
 
 
 
-    let hamburgerButtonElt = document.getElementById("hamburger-menu-button");
-    let hamburgerMenuElt = document.getElementById("hamburger-menu-wrapper");
+    let hamburgerButtonElt = document.getElementById("sas-hamburger-menu-button");
+    let hamburgerMenuElt = document.getElementById("sas-hamburger-menu-wrapper");
 
     initializeWrapper(hamburgerMenuElt);
     initializeHamburgerButton(hamburgerButtonElt);
 
-    hamburgerButtonElt.classList.add("modal-trigger");
-    hamburgerMenuElt.classList.add("modal-target");
-    hamburgerButtonElt.dataset.modalTarget = hamburgerMenuElt.id;
+    hamburgerButtonElt.classList.add("sas-modal-trigger");
+    hamburgerMenuElt.classList.add("sas-modal-target");
+    hamburgerButtonElt.dataset.sasModalTarget = hamburgerMenuElt.id;
 
 
 
@@ -155,11 +155,11 @@
 
     Modal.prototype.open = function() {
         if (!this.opened) {
-            this.targetElt.classList.add("opened");
-            this.targetElt.classList.remove("closed");
-            this.triggerElt.classList.add("target-opened");
-            this.triggerElt.classList.remove("target-closed");
-            document.body.classList.add("modal-opened");
+            this.targetElt.classList.add("sas-opened");
+            this.targetElt.classList.remove("sas-closed");
+            this.triggerElt.classList.add("sas-target-opened");
+            this.triggerElt.classList.remove("sas-target-closed");
+            document.body.classList.add("sas-modal-opened");
             removeTabNavigation(this.contentTabElts);
             giveTabNavigation(this.modalTabElts);
             this.opened = true;
@@ -168,11 +168,11 @@
 
     Modal.prototype.close = function() {
         if (this.opened) {
-            this.targetElt.classList.remove("opened");
-            this.targetElt.classList.add("closed");
-            this.triggerElt.classList.remove("target-opened");
-            this.triggerElt.classList.add("target-closed");
-            document.body.classList.remove("modal-opened");
+            this.targetElt.classList.remove("sas-opened");
+            this.targetElt.classList.add("sas-closed");
+            this.triggerElt.classList.remove("sas-target-opened");
+            this.triggerElt.classList.add("sas-target-closed");
+            document.body.classList.remove("sas-modal-opened");
             giveTabNavigation(this.contentTabElts);
             removeTabNavigation(this.modalTabElts);
             this.opened = false;
@@ -189,8 +189,8 @@
 
     Modal.prototype.reset = function() {
         this.close();
-        this.targetElt.classList.remove("closed");
-        this.triggerElt.classList.remove("target-closed");
+        this.targetElt.classList.remove("sas-closed");
+        this.triggerElt.classList.remove("sas-target-closed");
     }
 
 
@@ -237,15 +237,15 @@
 
     let modalObjects = new Modals();
     let backgroundElt = document.createElement("div");
-    let modalTriggerElts = document.getElementsByClassName("modal-trigger");
-    let modalCloseButtonElt = document.getElementsByClassName("modal-close-button");
-    let contentTabElts = getTabElements(document.getElementById("content"));
+    let modalTriggerElts = document.getElementsByClassName("sas-modal-trigger");
+    let modalCloseButtonElt = document.getElementsByClassName("sas-modal-close-button");
+    let contentTabElts = getTabElements(document.getElementById("sas-content"));
 
-    backgroundElt.id = "background";
+    backgroundElt.id = "sas-background";
     document.body.appendChild(backgroundElt);
 
     for (let i = 0 ; i < modalTriggerElts.length ; i++) {
-        let targetElt = document.getElementById(modalTriggerElts[i].dataset.modalTarget);
+        let targetElt = document.getElementById(modalTriggerElts[i].dataset.sasModalTarget);
         let newModal = new Modal(targetElt, modalTriggerElts[i], backgroundElt, contentTabElts);
         let triggerId = modalTriggerElts[i].id;
         modalObjects.push(newModal, triggerId);
