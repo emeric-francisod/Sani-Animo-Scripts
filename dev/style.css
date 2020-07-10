@@ -10,8 +10,8 @@
 }
 
 .sas-carousel-wrapper img {
-    height: 200px;
-    width: auto;
+    width: 150px;
+    height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
