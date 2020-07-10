@@ -46,3 +46,44 @@
     transform: translate(100%, -50%) scale(0.2);
     z-index: 5;
 }
+
+.sas-carousel-wrapper a.sas-carousel-next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+    z-index: 15;
+    font-size: 100px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.sas-carousel-wrapper a.sas-carousel-next-button::before {
+    content: '>';
+}
+
+.sas-carousel-wrapper a.sas-carousel-prev-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 16px;
+    z-index: 15;
+    font-size: 100px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.sas-carousel-wrapper a.sas-carousel-prev-button::before {
+    content: '<';
+}
+
+.sas-carousel-wrapper a.sas-carousel-prev-button, .sas-carousel-wrapper a.sas-carousel-next-button {
+    transition: transform 50ms ease-out;
+}
+
+.sas-carousel-wrapper a.sas-carousel-prev-button:hover, .sas-carousel-wrapper a.sas-carousel-next-button:hover {
+    transform-origin: center;
+    transform: translateY(-50%) scale(1.2);
+}

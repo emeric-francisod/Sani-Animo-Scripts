@@ -37,3 +37,13 @@ function rotateCarousel(carouselElt, forward = true) {
 }
 
 let carouselElt = document.getElementById("carousel");
+let nextButtonElt = carouselElt.getElementsByClassName("sas-carousel-next-button")[0];
+let prevButtonElt = carouselElt.getElementsByClassName("sas-carousel-prev-button")[0];
+
+nextButtonElt.addEventListener("click", function(e) {
+    rotateCarousel(carouselElt, true);
+});
+
+prevButtonElt.addEventListener("click", function(e) {
+    rotateCarousel(carouselElt, false);
+});
