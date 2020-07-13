@@ -4,6 +4,7 @@ function Carousel(carouselElt) {
     this.previousButton = document.createElement("a");
     this.imagesArray = [];
     this.imageNumber = 0;
+    this.animationId = null;
 
     let imageElts = this.carouselElt.getElementsByTagName("img");
     this.imageNumber = imageElts.length;
@@ -35,8 +36,7 @@ function Carousel(carouselElt) {
     this.carouselElt.appendChild(this.nextButton);
 
 
-
-    setInterval(this.rotateCarousel.bind(this), 4000);
+    this.setAutoRotation();
 }
 
 Carousel.prototype.updateIndex = function() {
@@ -46,6 +46,8 @@ Carousel.prototype.updateIndex = function() {
 }
 
 Carousel.prototype.rotateCarousel = function (forward = true) {
+    clearInterval(this.animationId);
+
     if (forward) {
         this.imagesArray.push(this.imagesArray.shift());
     } else {
@@ -53,4 +55,9 @@ Carousel.prototype.rotateCarousel = function (forward = true) {
     }
 
     this.updateIndex();
+    this.setAutoRotation();
+}
+
+Carousel.prototype.setAutoRotation = function() {
+    this.animationId = setInterval(this.rotateCarousel.bind(this), 4000);
 }
