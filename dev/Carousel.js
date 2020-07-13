@@ -1,7 +1,7 @@
-function Carousel(carouselElt, nextButton, previousButton) {
+function Carousel(carouselElt) {
     this.carouselElt = carouselElt;
-    this.nextButton = nextButton;
-    this.previousButton = previousButton;
+    this.nextButton = document.createElement("a");
+    this.previousButton = document.createElement("a");
     this.imagesArray = [];
     this.imageNumber = 0;
 
@@ -14,12 +14,25 @@ function Carousel(carouselElt, nextButton, previousButton) {
 
     this.updateIndex();
 
+
+    this.nextButton.setAttribute("href", "#");
+    this.previousButton.setAttribute("href", "#");
+
+    this.nextButton.setAttribute("title", "Image Suivante");
+    this.previousButton.setAttribute("title", "Image précédente");
+
+    this.nextButton.classList.add("sas-carousel-next-button");
+    this.previousButton.classList.add("sas-carousel-prev-button");
+
     this.nextButton.addEventListener("click", (function() {
         this.rotateCarousel(true);
     }).bind(this));
     this.previousButton.addEventListener("click", (function() {
         this.rotateCarousel(false);
     }).bind(this));
+
+    this.carouselElt.appendChild(this.previousButton);
+    this.carouselElt.appendChild(this.nextButton);
 }
 
 Carousel.prototype.updateIndex = function() {
