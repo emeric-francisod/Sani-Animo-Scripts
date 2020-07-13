@@ -33,6 +33,10 @@ function Carousel(carouselElt) {
 
     this.carouselElt.appendChild(this.previousButton);
     this.carouselElt.appendChild(this.nextButton);
+
+
+
+    setInterval(this.rotateCarousel.bind(this), 4000);
 }
 
 Carousel.prototype.updateIndex = function() {
