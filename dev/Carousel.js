@@ -19,7 +19,7 @@ function Carousel(carouselElt) {
         this.createNavigation();
     }
 
-    if (this.imageNumber > 3) {
+    if (this.imageNumber > 4) {
         this.setAutoRotation();
     }
 }
@@ -31,7 +31,7 @@ Carousel.prototype.updateIndex = function() {
 }
 
 Carousel.prototype.rotateCarousel = function (forward = true) {
-    if (this.imageNumber > 3) {
+    if (this.imageNumber > 4) {
         clearInterval(this.animationId);
 
         if (forward) {
@@ -42,6 +42,7 @@ Carousel.prototype.rotateCarousel = function (forward = true) {
 
         this.updateIndex();
         this.setAutoRotation();
+
     } else {
         if (forward && this.imagesArray[this.imageNumber - 1].dataset.sasCarouselIndex !== "0") {
             for (let i = 0 ; i < this.imageNumber ; i++) {
