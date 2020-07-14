@@ -1,17 +1,13 @@
-function Carousel(carouselElt) {
+function Carousel(carouselElt, imgUrlList = null) {
     this.carouselElt = carouselElt;
     this.nextButton = null;
     this.previousButton = null;
     this.imagesArray = [];
+    this.imagesUrls = imgUrlList;
     this.imageNumber = 0;
     this.animationId = null;
 
-    let imageElts = this.carouselElt.getElementsByTagName("img");
-    this.imageNumber = imageElts.length;
-
-    for (let i = 0 ; i < this.imageNumber ; i++) {
-        this.imagesArray.push(imageElts[i]);
-    }
+    this.setImagesUp();
 
     this.updateIndex();
 
@@ -84,4 +80,26 @@ Carousel.prototype.createNavigation = function() {
 
     this.carouselElt.appendChild(this.previousButton);
     this.carouselElt.appendChild(this.nextButton);
+}
+
+Carousel.prototype.setImagesUp = function() {
+    if (this.imagesUrls !== null) {
+        this.imageNumber = (10 <= this.imagesUrls.length) ? 10 : this.imagesUrls.length;
+
+        for (let i = 0 ; i < this.imageNumber ; i++) {
+            let imageElt = document.createElement("img");
+            imageElt.setAttribute("src", this.imagesUrls[0]);
+            imageElt.setAttribute("alt", "du texte");
+            this.carouselElt.appendChild(imageElt);
+            this.imagesArray.push(imageElt);
+            this.imagesUrls.shift();
+        }
+    } else {
+        let imageElts = this.carouselElt.getElementsByTagName("img");
+        this.imageNumber = imageElts.length;
+
+        for (let i = 0 ; i < this.imageNumber ; i++) {
+            this.imagesArray.push(imageElts[i]);
+        }
+    }
 }
