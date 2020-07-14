@@ -25,10 +25,12 @@ function Carousel(carouselElt) {
     this.nextButton.classList.add("sas-carousel-next-button");
     this.previousButton.classList.add("sas-carousel-prev-button");
 
-    this.nextButton.addEventListener("click", (function() {
+    this.nextButton.addEventListener("click", (function(e) {
+        e.preventDefault();
         this.rotateCarousel(true);
     }).bind(this));
-    this.previousButton.addEventListener("click", (function() {
+    this.previousButton.addEventListener("click", (function(e) {
+        e.preventDefault();
         this.rotateCarousel(false);
     }).bind(this));
 
