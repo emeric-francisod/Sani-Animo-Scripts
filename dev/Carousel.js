@@ -1,7 +1,7 @@
 function Carousel(carouselElt) {
     this.carouselElt = carouselElt;
-    this.nextButton = document.createElement("a");
-    this.previousButton = document.createElement("a");
+    this.nextButton = null;
+    this.previousButton = null;
     this.imagesArray = [];
     this.imageNumber = 0;
     this.animationId = null;
@@ -15,28 +15,7 @@ function Carousel(carouselElt) {
 
     this.updateIndex();
 
-
-    this.nextButton.setAttribute("href", "#");
-    this.previousButton.setAttribute("href", "#");
-
-    this.nextButton.setAttribute("title", "Image Suivante");
-    this.previousButton.setAttribute("title", "Image précédente");
-
-    this.nextButton.classList.add("sas-carousel-next-button");
-    this.previousButton.classList.add("sas-carousel-prev-button");
-
-    this.nextButton.addEventListener("click", (function(e) {
-        e.preventDefault();
-        this.rotateCarousel(true);
-    }).bind(this));
-    this.previousButton.addEventListener("click", (function(e) {
-        e.preventDefault();
-        this.rotateCarousel(false);
-    }).bind(this));
-
-    this.carouselElt.appendChild(this.previousButton);
-    this.carouselElt.appendChild(this.nextButton);
-
+    this.createNavigation();
 
     this.setAutoRotation();
 }
@@ -62,4 +41,30 @@ Carousel.prototype.rotateCarousel = function (forward = true) {
 
 Carousel.prototype.setAutoRotation = function() {
     this.animationId = setInterval(this.rotateCarousel.bind(this), 4000);
+}
+
+Carousel.prototype.createNavigation = function() {
+    this.nextButton = document.createElement("a");
+    this.previousButton = document.createElement("a");
+
+    this.nextButton.setAttribute("href", "#");
+    this.previousButton.setAttribute("href", "#");
+
+    this.nextButton.setAttribute("title", "Image Suivante");
+    this.previousButton.setAttribute("title", "Image précédente");
+
+    this.nextButton.classList.add("sas-carousel-next-button");
+    this.previousButton.classList.add("sas-carousel-prev-button");
+
+    this.nextButton.addEventListener("click", (function(e) {
+        e.preventDefault();
+        this.rotateCarousel(true);
+    }).bind(this));
+    this.previousButton.addEventListener("click", (function(e) {
+        e.preventDefault();
+        this.rotateCarousel(false);
+    }).bind(this));
+
+    this.carouselElt.appendChild(this.previousButton);
+    this.carouselElt.appendChild(this.nextButton);
 }
