@@ -1,61 +1,122 @@
 function Carousel(carouselElt, imgUrlList = null) {
-    this.carouselElt = carouselElt;
+    this.carouselWrapper = carouselElt;
+    this.imageUrlArray = imgUrlList;
+    this.cycleListStart = null;
+    this.currentElement = null;
+    this.imageNumber = 0;
     this.nextButton = null;
     this.previousButton = null;
-    this.imagesArray = [];
-    this.imagesUrls = imgUrlList;
-    this.imageNumber = 0;
-    this.animationId = null;
+    this.animationid = null;
+    this.lastInsertedIndex = 0;
 
     this.setImagesUp();
-
-    this.updateIndex();
-
-    if (this.imageNumber > 1) {
-        this.createNavigation();
-    }
-
-    if (this.imageNumber > 4) {
-        //this.setAutoRotation();
-    }
+    //this.setAutoRotation();
+    this.createNavigation();
 }
 
-Carousel.prototype.updateIndex = function() {
-    for (let i = 0 ; i < this.imageNumber ; i++) {
-        this.imagesArray[i].dataset.sasCarouselIndex = i - Math.floor(this.imageNumber / 2);
+Carousel.prototype.toString = function() {
+    console.log("Affichage du cycle:");
+    if (this.cycleListStart === null) {
+        return;
     }
+    let currentLoopElement = this.cycleListStart;
+    do {
+        console.log(currentLoopElement);
+        currentLoopElement = currentLoopElement.next;
+    } while (currentLoopElement !== this.cycleListStart);
+    console.log("Fin du cycle.");
 }
 
-Carousel.prototype.rotateCarousel = function (forward = true) {
-    if (this.addImage(forward)) {
-        this.updateIndex();
-    } else if (this.imageNumber > 4) {
-        clearInterval(this.animationId);
+Carousel.prototype.rotate = function(forward = true) {
+    this.addOpposite();
+    let loopCurrentElt = this.cycleListStart;
+    let indexReminder = (forward) ? loopCurrentElt.previous.index : loopCurrentElt.next.index;
 
+    do {
         if (forward) {
-            this.imagesArray.push(this.imagesArray.shift());
+            let currentIndex = loopCurrentElt.index;
+            loopCurrentElt.index = indexReminder;
+            indexReminder = currentIndex;
+            loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
+            loopCurrentElt = loopCurrentElt.next;
         } else {
-            this.imagesArray.unshift(this.imagesArray.pop());
+            let currentIndex = loopCurrentElt.index;
+            loopCurrentElt.index = indexReminder;
+            indexReminder = currentIndex;
+            loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
+            loopCurrentElt = loopCurrentElt.previous;
         }
+    } while (loopCurrentElt !== this.cycleListStart);
+}
 
-        this.updateIndex();
-        //this.setAutoRotation();
+Carousel.prototype.addOpposite = function(imageElement = null) {
+    this.toString();
+    let newImageElt = null;
 
+    if (imageElement !== null) {
+        newImageElt = imageElement;
+    } else if (this.imageUrlArray === null || this.imageUrlArray.length === 0) {
+        return false;
     } else {
-        if (forward && this.imagesArray[this.imageNumber - 1].dataset.sasCarouselIndex !== "0") {
-            for (let i = 0 ; i < this.imageNumber ; i++) {
-                this.imagesArray[i].dataset.sasCarouselIndex = parseInt(this.imagesArray[i].dataset.sasCarouselIndex) - 1;
-            }
-        } else if (!forward && this.imagesArray[0].dataset.sasCarouselIndex !== "0") {
-            for (let i = 0 ; i < this.imageNumber ; i++) {
-                this.imagesArray[i].dataset.sasCarouselIndex = parseInt(this.imagesArray[i].dataset.sasCarouselIndex) + 1;
-            }
+        newImageElt = document.createElement("img");
+        newImageElt.setAttribute("src", this.imageUrlArray[0]);
+        newImageElt.setAttribute("alt", "Texte");
+        this.imageUrlArray.shift();
+        this.carouselWrapper.appendChild(newImageElt);
+    }
+
+
+    let newImageObject = {
+        node: newImageElt,
+        previous: null,
+        next: null,
+        index: 0
+    }
+
+    newImageObject.next = newImageObject;
+    newImageObject.previous = newImageObject;
+
+    if (this.cycleListStart === null) {
+        this.cycleListStart = newImageObject;
+    } else {
+        let loopCurrentElt = this.cycleListStart;
+        while (loopCurrentElt.next.index % 2 !== 0) {
+            loopCurrentElt = loopCurrentElt.next;
+        }
+        newImageObject.index = this.lastInsertedIndex + 1;
+        this.lastInsertedIndex++;
+        newImageObject.previous = loopCurrentElt;
+        newImageObject.next = loopCurrentElt.next;
+        loopCurrentElt.next.previous = newImageObject;
+        loopCurrentElt.next = newImageObject;
+    }
+
+    newImageObject.node.dataset.sasCarouselIndex = newImageObject.index;
+
+    this.imageNumber++;
+    this.toString();
+    return true;
+}
+
+Carousel.prototype.setImagesUp = function() {
+    if (this.imageUrlArray !== null) {
+        let maxNumber = (10 <= this.imageUrlArray.length) ? 10 : this.imageUrlArray.length;
+
+        for (let i = 0 ; i < maxNumber ; i++) {
+            this.addOpposite();
+        }
+    } else {
+        let imageElts = this.carouselWrapper.getElementsByTagName("img");
+        let number = imageElts.length;
+
+        for (let i = 0 ; i < number ; i++) {
+            this.addOpposite(imageElts[i]);
         }
     }
 }
 
 Carousel.prototype.setAutoRotation = function() {
-    this.animationId = setInterval(this.rotateCarousel.bind(this), 4000);
+    this.animationId = setInterval(this.rotate.bind(this), 4000);
 }
 
 Carousel.prototype.createNavigation = function() {
@@ -73,60 +134,17 @@ Carousel.prototype.createNavigation = function() {
 
     this.nextButton.addEventListener("click", (function(e) {
         e.preventDefault();
-        this.rotateCarousel(true);
+        clearInterval(this.animationId);
+        this.rotate(true);
+        //this.setAutoRotation();
     }).bind(this));
     this.previousButton.addEventListener("click", (function(e) {
         e.preventDefault();
-        this.rotateCarousel(false);
+        clearInterval(this.animationId);
+        this.rotate(false);
+        //this.setAutoRotation();
     }).bind(this));
 
-    this.carouselElt.appendChild(this.previousButton);
-    this.carouselElt.appendChild(this.nextButton);
-}
-
-Carousel.prototype.setImagesUp = function() {
-    if (this.imagesUrls !== null) {
-        this.imageNumber = (10 <= this.imagesUrls.length) ? 10 : this.imagesUrls.length;
-
-        for (let i = 0 ; i < this.imageNumber ; i++) {
-            let imageElt = document.createElement("img");
-            imageElt.setAttribute("src", this.imagesUrls[0]);
-            imageElt.setAttribute("alt", "du texte");
-            this.carouselElt.appendChild(imageElt);
-            this.imagesArray.push(imageElt);
-            this.imagesUrls.shift();
-        }
-    } else {
-        let imageElts = this.carouselElt.getElementsByTagName("img");
-        this.imageNumber = imageElts.length;
-
-        for (let i = 0 ; i < this.imageNumber ; i++) {
-            this.imagesArray.push(imageElts[i]);
-        }
-    }
-}
-
-Carousel.prototype.addImage = function(forward = true, imageElt = null) {
-    let newImageElt = null;
-
-    if (imageElt !== null) {
-        newImageElt = imageElt;
-    } else if (this.imagesUrls === null || this.imagesUrls.length === 0) {
-        return false;
-    } else {
-        newImageElt = document.createElement("img");
-        newImageElt.setAttribute("src", this.imagesUrls[0]);
-        newImageElt.setAttribute("alt", "du texte");
-        this.imagesUrls.shift();
-    }
-    this.carouselElt.appendChild(newImageElt);
-
-    if (forward) {
-        this.imagesArray.push(newImageElt);
-    } else {
-        this.imagesArray.unshift(newImageElt);
-    }
-
-    this.imageNumber++;
-    return true;
+    this.carouselWrapper.appendChild(this.previousButton);
+    this.carouselWrapper.appendChild(this.nextButton);
 }
