@@ -16,7 +16,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     }
 
     if (this.imageNumber > 4) {
-        this.setAutoRotation();
+        //this.setAutoRotation();
     }
 }
 
@@ -27,7 +27,7 @@ Carousel.prototype.updateIndex = function() {
 }
 
 Carousel.prototype.rotateCarousel = function (forward = true) {
-    if (this.imageNumber > 4) {
+    if (this.imageNumber > 4 && !this.addImage(forward)) {
         clearInterval(this.animationId);
 
         if (forward) {
@@ -37,7 +37,7 @@ Carousel.prototype.rotateCarousel = function (forward = true) {
         }
 
         this.updateIndex();
-        this.setAutoRotation();
+        //this.setAutoRotation();
 
     } else {
         if (forward && this.imagesArray[this.imageNumber - 1].dataset.sasCarouselIndex !== "0") {
@@ -102,4 +102,29 @@ Carousel.prototype.setImagesUp = function() {
             this.imagesArray.push(imageElts[i]);
         }
     }
+}
+
+Carousel.prototype.addImage = function(forward = true, imageElt = null) {
+    let newImageElt = null;
+
+    if (imageElt !== null) {
+        newImageElt = imageElt;
+    } else if (this.imagesUrls === null || this.imagesUrls.length === 0) {
+        return false;
+    } else {
+        newImageElt = document.createElement("img");
+        newImageElt.setAttribute("src", this.imagesUrls[0]);
+        newImageElt.setAttribute("alt", "du texte");
+        this.imagesUrls.shift();
+    }
+    this.carouselElt.appendChild(newImageElt);
+
+    if (forward) {
+        this.imagesArray.push(newImageElt);
+    } else {
+        this.imagesArray.unshift(newImageElt);
+    }
+
+    this.imageNumber++;
+    return true;
 }
