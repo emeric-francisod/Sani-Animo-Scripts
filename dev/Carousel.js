@@ -27,7 +27,9 @@ Carousel.prototype.updateIndex = function() {
 }
 
 Carousel.prototype.rotateCarousel = function (forward = true) {
-    if (this.imageNumber > 4 && !this.addImage(forward)) {
+    if (this.addImage(forward)) {
+        this.updateIndex();
+    } else if (this.imageNumber > 4) {
         clearInterval(this.animationId);
 
         if (forward) {
