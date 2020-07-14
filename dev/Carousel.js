@@ -15,9 +15,10 @@ function Carousel(carouselElt) {
 
     this.updateIndex();
 
-    this.createNavigation();
-
-    this.setAutoRotation();
+    if (this.imageNumber > 1) {
+        this.createNavigation();
+        this.setAutoRotation();
+    }
 }
 
 Carousel.prototype.updateIndex = function() {
