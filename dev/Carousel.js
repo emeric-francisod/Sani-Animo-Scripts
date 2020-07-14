@@ -17,6 +17,9 @@ function Carousel(carouselElt) {
 
     if (this.imageNumber > 1) {
         this.createNavigation();
+    }
+
+    if (this.imageNumber > 3) {
         this.setAutoRotation();
     }
 }
@@ -28,16 +31,28 @@ Carousel.prototype.updateIndex = function() {
 }
 
 Carousel.prototype.rotateCarousel = function (forward = true) {
-    clearInterval(this.animationId);
+    if (this.imageNumber > 3) {
+        clearInterval(this.animationId);
 
-    if (forward) {
-        this.imagesArray.push(this.imagesArray.shift());
+        if (forward) {
+            this.imagesArray.push(this.imagesArray.shift());
+        } else {
+            this.imagesArray.unshift(this.imagesArray.pop());
+        }
+
+        this.updateIndex();
+        this.setAutoRotation();
     } else {
-        this.imagesArray.unshift(this.imagesArray.pop());
+        if (forward && this.imagesArray[this.imageNumber - 1].dataset.sasCarouselIndex !== "0") {
+            for (let i = 0 ; i < this.imageNumber ; i++) {
+                this.imagesArray[i].dataset.sasCarouselIndex = parseInt(this.imagesArray[i].dataset.sasCarouselIndex) - 1;
+            }
+        } else if (!forward && this.imagesArray[0].dataset.sasCarouselIndex !== "0") {
+            for (let i = 0 ; i < this.imageNumber ; i++) {
+                this.imagesArray[i].dataset.sasCarouselIndex = parseInt(this.imagesArray[i].dataset.sasCarouselIndex) + 1;
+            }
+        }
     }
-
-    this.updateIndex();
-    this.setAutoRotation();
 }
 
 Carousel.prototype.setAutoRotation = function() {
