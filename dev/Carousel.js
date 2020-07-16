@@ -9,15 +9,15 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.animationid = null;
 
     this.setImagesUp();
-    //this.setAutoRotation();
+    this.setAutoRotation();
     this.createNavigation();
 }
 
 Carousel.prototype.toString = function() {
-    console.log("Affichage du cycle:");
     if (this.cycleListStart === null) {
         return;
     }
+    console.log("Affichage du cycle:");
     let currentLoopElement = this.cycleListStart;
     do {
         console.log(currentLoopElement);
@@ -32,28 +32,19 @@ Carousel.prototype.rotate = function(forward = true) {
     let indexReminder = (forward) ? loopCurrentElt.previous.index : loopCurrentElt.next.index;
 
     do {
+        let currentIndex = loopCurrentElt.index;
+        loopCurrentElt.index = indexReminder;
+        indexReminder = currentIndex;
+        loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
+        if (loopCurrentElt.index === 0) {
+            this.currentElement = loopCurrentElt;
+        }
         if (forward) {
-            let currentIndex = loopCurrentElt.index;
-            loopCurrentElt.index = indexReminder;
-            indexReminder = currentIndex;
-            loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
-            if (loopCurrentElt.index === 0) {
-                this.currentElement = loopCurrentElt;
-            }
             loopCurrentElt = loopCurrentElt.next;
         } else {
-            let currentIndex = loopCurrentElt.index;
-            loopCurrentElt.index = indexReminder;
-            indexReminder = currentIndex;
-            loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
-            if (loopCurrentElt.index === 0) {
-                this.currentElement = loopCurrentElt;
-            }
             loopCurrentElt = loopCurrentElt.previous;
         }
     } while (loopCurrentElt !== this.cycleListStart);
-
-    //this.toString();
 }
 
 Carousel.prototype.addOpposite = function(imageElement = null) {
@@ -102,28 +93,7 @@ Carousel.prototype.addOpposite = function(imageElement = null) {
     newImageObject.node.dataset.sasCarouselIndex = newImageObject.index;
 
     this.imageNumber++;
-    //this.toString();
     return true;
-}
-
-Carousel.prototype.replaceIndexes = function() {
-    let currentLoopImage = this.currentElement.next;
-    let currentIndex = 1;
-
-    do {
-        currentLoopImage.index = currentIndex;
-        currentLoopImage = currentLoopImage.next;
-        currentIndex += 2
-    } while (currentIndex <= this.imageNumber - 1);
-
-    currentLoopImage = this.currentElement.previous;
-    currentIndex = 2;
-
-    do {
-        currentLoopImage.index = currentIndex;
-        currentLoopImage = currentLoopImage.previous;
-        currentIndex += 2;
-    } while (currentIndex <= this.imageNumber - 1);
 }
 
 Carousel.prototype.setImagesUp = function() {
@@ -164,13 +134,13 @@ Carousel.prototype.createNavigation = function() {
         e.preventDefault();
         clearInterval(this.animationId);
         this.rotate(true);
-        //this.setAutoRotation();
+        this.setAutoRotation();
     }).bind(this));
     this.previousButton.addEventListener("click", (function(e) {
         e.preventDefault();
         clearInterval(this.animationId);
         this.rotate(false);
-        //this.setAutoRotation();
+        this.setAutoRotation();
     }).bind(this));
 
     this.carouselWrapper.appendChild(this.previousButton);
