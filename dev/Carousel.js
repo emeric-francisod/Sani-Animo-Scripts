@@ -7,7 +7,6 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.nextButton = null;
     this.previousButton = null;
     this.animationid = null;
-    this.lastInsertedIndex = 0;
 
     this.setImagesUp();
     //this.setAutoRotation();
@@ -38,19 +37,26 @@ Carousel.prototype.rotate = function(forward = true) {
             loopCurrentElt.index = indexReminder;
             indexReminder = currentIndex;
             loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
+            if (loopCurrentElt.index === 0) {
+                this.currentElement = loopCurrentElt;
+            }
             loopCurrentElt = loopCurrentElt.next;
         } else {
             let currentIndex = loopCurrentElt.index;
             loopCurrentElt.index = indexReminder;
             indexReminder = currentIndex;
             loopCurrentElt.node.dataset.sasCarouselIndex = loopCurrentElt.index;
+            if (loopCurrentElt.index === 0) {
+                this.currentElement = loopCurrentElt;
+            }
             loopCurrentElt = loopCurrentElt.previous;
         }
     } while (loopCurrentElt !== this.cycleListStart);
+
+    //this.toString();
 }
 
 Carousel.prototype.addOpposite = function(imageElement = null) {
-    this.toString();
     let newImageElt = null;
 
     if (imageElement !== null) {
@@ -70,7 +76,7 @@ Carousel.prototype.addOpposite = function(imageElement = null) {
         node: newImageElt,
         previous: null,
         next: null,
-        index: 0
+        index: null
     }
 
     newImageObject.next = newImageObject;
@@ -78,24 +84,46 @@ Carousel.prototype.addOpposite = function(imageElement = null) {
 
     if (this.cycleListStart === null) {
         this.cycleListStart = newImageObject;
+        newImageObject.index = 0;
+        this.currentElement = this.cycleListStart;
     } else {
-        let loopCurrentElt = this.cycleListStart;
+        let loopCurrentElt = this.currentElement;
         while (loopCurrentElt.next.index % 2 !== 0) {
             loopCurrentElt = loopCurrentElt.next;
         }
-        newImageObject.index = this.lastInsertedIndex + 1;
-        this.lastInsertedIndex++;
         newImageObject.previous = loopCurrentElt;
         newImageObject.next = loopCurrentElt.next;
         loopCurrentElt.next.previous = newImageObject;
         loopCurrentElt.next = newImageObject;
+
+        newImageObject.index = (newImageObject.next.index < newImageObject.previous.index) ? newImageObject.previous.index + 1 : newImageObject.next.index + 1;
     }
 
     newImageObject.node.dataset.sasCarouselIndex = newImageObject.index;
 
     this.imageNumber++;
-    this.toString();
+    //this.toString();
     return true;
+}
+
+Carousel.prototype.replaceIndexes = function() {
+    let currentLoopImage = this.currentElement.next;
+    let currentIndex = 1;
+
+    do {
+        currentLoopImage.index = currentIndex;
+        currentLoopImage = currentLoopImage.next;
+        currentIndex += 2
+    } while (currentIndex <= this.imageNumber - 1);
+
+    currentLoopImage = this.currentElement.previous;
+    currentIndex = 2;
+
+    do {
+        currentLoopImage.index = currentIndex;
+        currentLoopImage = currentLoopImage.previous;
+        currentIndex += 2;
+    } while (currentIndex <= this.imageNumber - 1);
 }
 
 Carousel.prototype.setImagesUp = function() {
