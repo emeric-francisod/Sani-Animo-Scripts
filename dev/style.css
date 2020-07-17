@@ -7,6 +7,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    perspective: 500px;
+    perspective-origin: center;
 }
 
 .sas-carousel-wrapper img {
@@ -16,7 +18,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: transform 500ms ease-in-out, opacity 500ms ease-out;
+    transition: transform 500ms ease-in-out, opacity 500ms ease-out, z-index 500ms ease-in;
     opacity: 0;
     z-index: -5;
     display: none;
@@ -28,30 +30,30 @@
     display: inline;
 }
 
-.sas-carousel-wrapper img[data-sas-carousel-index="-1"] {
+.sas-carousel-wrapper img[data-sas-carousel-index="2"] {
     opacity: 0.7;
-    transform: translate(-150%, -50%) scale(0.7);
+    transform: translate3d(-150%, -50%, -200px);
     z-index: 7;
     display: inline;
 }
 
 .sas-carousel-wrapper img[data-sas-carousel-index="1"] {
     opacity: 0.7;
-    transform: translate(50%, -50%) scale(0.7);
+    transform: translate3d(50%, -50%, -200px);
     z-index: 7;
     display: inline;
 }
 
-.sas-carousel-wrapper img[data-sas-carousel-index="-2"] {
+.sas-carousel-wrapper img[data-sas-carousel-index="4"] {
     opacity: 0;
-    transform: translate(-200%, -50%) scale(0.2);
+    transform: translate3d(-200%, -50%, -400px);
     z-index: 5;
     display: inline;
 }
 
-.sas-carousel-wrapper img[data-sas-carousel-index="2"] {
+.sas-carousel-wrapper img[data-sas-carousel-index="3"] {
     opacity: 0;
-    transform: translate(100%, -50%) scale(0.2);
+    transform: translate3d(100%, -50%, -400px);
     z-index: 5;
     display: inline;
 }
