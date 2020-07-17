@@ -10,6 +10,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.imageUrlArray = imgUrlList;
     this.cycleListStart = null;
     this.currentElement = null;
+    this.oppositeElement = null;
     this.imageNumber = 0;
     this.nextButton = null;
     this.previousButton = null;
@@ -52,6 +53,12 @@ Carousel.prototype.rotate = function(forward = true) {
             loopCurrentElt = loopCurrentElt.previous;
         }
     } while (loopCurrentElt !== this.cycleListStart);
+
+    if (forward) {
+        this.oppositeElement = this.oppositeElement.next;
+    } else {
+        this.oppositeElement = this.oppositeElement.previous;
+    }
 }
 
 Carousel.prototype.fetchImage = function() {
@@ -94,15 +101,30 @@ Carousel.prototype.addOpposite = function() {
             this.cycleListStart = newImageObject;
             newImageObject.index = 0;
             this.currentElement = this.cycleListStart;
+            this.oppositeElement = this.cycleListStart;
         } else {
-            let loopCurrentElt = this.currentElement;
+            /* let loopCurrentElt = this.currentElement;
             while (loopCurrentElt.next.index % 2 !== 0) {
                 loopCurrentElt = loopCurrentElt.next;
             }
             newImageObject.previous = loopCurrentElt;
             newImageObject.next = loopCurrentElt.next;
             loopCurrentElt.next.previous = newImageObject;
-            loopCurrentElt.next = newImageObject;
+            loopCurrentElt.next = newImageObject; */
+
+            if ((this.imageNumber - 1) % 2 === 0) {
+                newImageObject.previous = this.oppositeElement;
+                newImageObject.next = this.oppositeElement.next;
+                this.oppositeElement.next.previous = newImageObject;
+                this.oppositeElement.next = newImageObject;
+            } else {
+                newImageObject.next = this.oppositeElement;
+                newImageObject.previous = this.oppositeElement.next;
+                this.oppositeElement.previous.next = newImageObject;
+                this.oppositeElement.previous = newImageObject;
+            }
+
+            this.oppositeElement = newImageObject;
 
             newImageObject.index = (newImageObject.next.index < newImageObject.previous.index) ? newImageObject.previous.index + 1 : newImageObject.next.index + 1;
         }
