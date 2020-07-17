@@ -4,7 +4,8 @@ let urls = new Array("img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.
 
 let carouselObj = new Carousel(carouselElt, urls);
 
-
+/*
 let carousel2Elt = document.getElementById("carousel2");
 let carousel2Obj = new Carousel(carousel2Elt);
 
+ */
