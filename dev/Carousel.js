@@ -94,41 +94,28 @@ Carousel.prototype.addOpposite = function() {
             index: null
         }
 
-        newImageObject.next = newImageObject;
-        newImageObject.previous = newImageObject;
-
         if (this.cycleListStart === null) {
+            newImageObject.next = newImageObject;
+            newImageObject.previous = newImageObject;
             this.cycleListStart = newImageObject;
             newImageObject.index = 0;
             this.currentElement = this.cycleListStart;
             this.oppositeElement = this.cycleListStart;
         } else {
-            /* let loopCurrentElt = this.currentElement;
-            while (loopCurrentElt.next.index % 2 !== 0) {
-                loopCurrentElt = loopCurrentElt.next;
-            }
-            newImageObject.previous = loopCurrentElt;
-            newImageObject.next = loopCurrentElt.next;
-            loopCurrentElt.next.previous = newImageObject;
-            loopCurrentElt.next = newImageObject; */
-
-            if ((this.imageNumber - 1) % 2 === 0) {
+            if (this.oppositeElement.index % 2 === 1) {
                 newImageObject.previous = this.oppositeElement;
                 newImageObject.next = this.oppositeElement.next;
                 this.oppositeElement.next.previous = newImageObject;
                 this.oppositeElement.next = newImageObject;
             } else {
                 newImageObject.next = this.oppositeElement;
-                newImageObject.previous = this.oppositeElement.next;
+                newImageObject.previous = this.oppositeElement.previous;
                 this.oppositeElement.previous.next = newImageObject;
                 this.oppositeElement.previous = newImageObject;
             }
-
+            newImageObject.index = this.oppositeElement.index + 1;
             this.oppositeElement = newImageObject;
-
-            newImageObject.index = (newImageObject.next.index < newImageObject.previous.index) ? newImageObject.previous.index + 1 : newImageObject.next.index + 1;
         }
-
         newImageObject.node.dataset.sasCarouselIndex = newImageObject.index;
 
         this.imageNumber++;
