@@ -15,6 +15,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.nextButton = null;
     this.previousButton = null;
     this.animationid = null;
+    this.rotating = false;
 
     this.setImagesUp();
     this.setAutoRotation();
@@ -35,6 +36,7 @@ Carousel.prototype.toString = function() {
 }
 
 Carousel.prototype.rotate = function(forward = true) {
+    this.rotating = true;
     this.addOpposite();
     let loopCurrentElt = this.cycleListStart;
     let indexReminder = (forward) ? loopCurrentElt.previous.index : loopCurrentElt.next.index;
@@ -59,6 +61,10 @@ Carousel.prototype.rotate = function(forward = true) {
     } else {
         this.oppositeElement = this.oppositeElement.previous;
     }
+
+    setTimeout((function() {
+        this.rotating = false;
+    }).bind(this), 350);
 }
 
 Carousel.prototype.fetchImage = function() {
@@ -162,15 +168,19 @@ Carousel.prototype.createNavigation = function() {
 
     this.nextButton.addEventListener("click", (function(e) {
         e.preventDefault();
-        clearInterval(this.animationId);
-        this.rotate(true);
-        this.setAutoRotation();
+        if (!this.rotating) {
+            clearInterval(this.animationId);
+            this.rotate(true);
+            this.setAutoRotation();
+        }
     }).bind(this));
     this.previousButton.addEventListener("click", (function(e) {
         e.preventDefault();
-        clearInterval(this.animationId);
-        this.rotate(false);
-        this.setAutoRotation();
+        if (!this.rotating) {
+            clearInterval(this.animationId);
+            this.rotate(false);
+            this.setAutoRotation();
+        }
     }).bind(this));
 
     this.carouselWrapper.appendChild(this.previousButton);
