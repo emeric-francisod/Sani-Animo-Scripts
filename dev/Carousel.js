@@ -9,14 +9,12 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.carouselWrapper = carouselElt;
     this.imageUrlArray = imgUrlList;
     this.displayedImages = [];
-    /* this.cycleListStart = null;
-    this.currentElement = null;
-    this.oppositeElement = null; */
     this.imageNumber = this.imageUrlArray.length;
     this.nextButton = null;
     this.previousButton = null;
     this.animationid = null;
     this.rotating = false;
+    this.visibleImageNumber = 3;
 
     this.setImagesUp();
     this.setAutoRotation();
@@ -24,7 +22,7 @@ function Carousel(carouselElt, imgUrlList = null) {
 }
 
 Carousel.prototype.toString = function() {
-    
+
 }
 
 Carousel.prototype.rotate = function(forward = true) {
