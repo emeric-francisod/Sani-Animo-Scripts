@@ -1,14 +1,45 @@
 function CarouselImage(linkNode) {
-    this.domNode = linkNode;
-    this.imageNode = this.domNode.getElementsByTagName("img")[0];
+    this.domNode = null;
+    this.imageNode = null;
     this.index = null;
+
+
+    if (linkNode instanceof HTMLAnchorElement) {
+        this.domNode = linkNode;
+        this.imageNode = this.domNode.getElementsByTagName("img")[0];
+        if (this.imageNode === undefined) {
+            this.imageNode = document.createElement("img");
+            this.domNode.appendChild(this.imageNode);
+        }
+    } else {
+        this.domNode = document.createElement("a");
+        this.imageNode = document.createElement("img");
+        this.domNode.appendChild(this.imageNode);
+    }
+
+    this.domNode.classList.add("sas-carousel-image-link");
 }
 
 CarouselImage.prototype.setIndex = function (id) {
     this.index = id;
-    this.domNode.dataSet.sasCarouselIndex = this.index;
+    this.domNode.dataset.sasCarouselIndex = this.index;
 }
 
 CarouselImage.prototype.changeImage = function (imgObj) {
+    if (imgObj !== undefined && imgObj.hasOwnProperty("url") && imgObj.url != null && imgObj.hasOwnProperty("alt")) {
+        this.imageNode.src = imgObj.url;
+        this.imageNode.alt = imgObj.alt;
+        if (imgObj.hasOwnProperty("redirection")) {
+            this.domNode.href = imgObj.redirection;
+        } else {
+            this.domNode.href = "";
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
 
+CarouselImage.prototype.getDomNode = function () {
+    return this.domNode;
 }
