@@ -16,7 +16,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.rotating = false;
     this.visibleImageNumber = 3;
 
-    this.setImagesUp();
+    this.setup();
     this.setAutoRotation();
     this.createNavigation();
 }
@@ -40,7 +40,17 @@ Carousel.prototype.addImage = function(imgObj) {
 }
 
 Carousel.prototype.setup = function() {
+    for (let i = 0 ; i < this.visibleImageNumber + 2 ; i++) {
+        let newImageElement = new CarouselImage();
+        this.carouselWrapper.appendChild(newImageElement.getDomNode());
+        newImageElement.setIndex(this.calculateIndex(i));
+        this.displayedImages.push(newImageElement);
+    }
+}
 
+Carousel.prototype.calculateIndex = function(intArrayIndex) {
+    intArrayIndex = intArrayIndex % (this.visibleImageNumber + 2);
+    return -(Math.floor((this.visibleImageNumber + 2) / 2)) + intArrayIndex;
 }
 
 Carousel.prototype.setAutoRotation = function() {
