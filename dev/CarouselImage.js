@@ -30,6 +30,10 @@ CarouselImage.prototype.getIndex = function () {
     return this.index;
 }
 
+CarouselImage.prototype.getImageIndex = function () {
+    return this.imageid;
+}
+
 CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
     if (imgObj !== undefined && imgObj.hasOwnProperty("url") && imgObj.url != null && imgObj.hasOwnProperty("alt")) {
         this.imageNode.src = imgObj.url;

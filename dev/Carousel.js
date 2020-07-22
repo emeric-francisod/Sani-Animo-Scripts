@@ -35,12 +35,22 @@ Carousel.prototype.rotate = function(forward = true) {
             obj.setIndex(obj.getIndex() - 1);
         });
         this.displayedImages[lastIndex].setIndex(this.displayedImages[lastIndex - 1].getIndex() + 1);
+        let newImageIndex = this.displayedImages[lastIndex - 1].getImageIndex() + 1;
+        if (newImageIndex >= this.imageUrlArray.length) {
+            newImageIndex = 0;
+        }
+        this.displayedImages[lastIndex].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
     } else {
         this.displayedImages.unshift(this.displayedImages.pop());
         this.displayedImages.map(function(obj) {
             obj.setIndex(obj.getIndex() + 1);
         });
         this.displayedImages[0].setIndex(this.displayedImages[1].getIndex() - 1);
+        let newImageIndex = this.displayedImages[1].getImageIndex() - 1;
+        if (newImageIndex < 0) {
+            newImageIndex = this.imageUrlArray.length - 1;
+        }
+        this.displayedImages[0].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
     }
 
     setTimeout((function() {
