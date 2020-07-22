@@ -40,10 +40,17 @@ Carousel.prototype.addImage = function(imgObj) {
 }
 
 Carousel.prototype.setup = function() {
+    let imgUrlArrayId = (this.imageUrlArray.length > 0) ? 0 : null;
     for (let i = 0 ; i < this.visibleImageNumber + 2 ; i++) {
         let newImageElement = new CarouselImage();
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
         newImageElement.setIndex(this.calculateIndex(i));
+        if (imgUrlArrayId !== null) {
+            newImageElement.changeImage(this.imageUrlArray[imgUrlArrayId++], imgUrlArrayId);
+            if (imgUrlArrayId >= this.imageUrlArray.length) {
+                imgUrlArrayId = 0;
+            }
+        }
         this.displayedImages.push(newImageElement);
     }
 }
