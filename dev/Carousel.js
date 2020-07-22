@@ -28,7 +28,20 @@ Carousel.prototype.toString = function() {
 Carousel.prototype.rotate = function(forward = true) {
     this.rotating = true;
 
-
+    if (forward) {
+        let lastIndex = this.displayedImages.length - 1;
+        this.displayedImages.push(this.displayedImages.shift());
+        this.displayedImages.map(function (obj) {
+            obj.setIndex(obj.getIndex() - 1);
+        });
+        this.displayedImages[lastIndex].setIndex(this.displayedImages[lastIndex - 1].getIndex() + 1);
+    } else {
+        this.displayedImages.unshift(this.displayedImages.pop());
+        this.displayedImages.map(function(obj) {
+            obj.setIndex(obj.getIndex() + 1);
+        });
+        this.displayedImages[0].setIndex(this.displayedImages[1].getIndex() - 1);
+    }
 
     setTimeout((function() {
         this.rotating = false;

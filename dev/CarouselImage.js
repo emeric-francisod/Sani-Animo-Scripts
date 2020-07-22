@@ -26,6 +26,10 @@ CarouselImage.prototype.setIndex = function (id) {
     this.domNode.dataset.sasCarouselIndex = this.index;
 }
 
+CarouselImage.prototype.getIndex = function () {
+    return this.index;
+}
+
 CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
     if (imgObj !== undefined && imgObj.hasOwnProperty("url") && imgObj.url != null && imgObj.hasOwnProperty("alt")) {
         this.imageNode.src = imgObj.url;
