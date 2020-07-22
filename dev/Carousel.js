@@ -70,8 +70,6 @@ Carousel.prototype.rotate = function(forward = true) {
         this.displayedImages[0].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
     }
 
-    this.toString(false);
-
     setTimeout((function() {
         this.rotating = false;
     }).bind(this), 350);
@@ -88,14 +86,14 @@ Carousel.prototype.setup = function() {
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
         newImageElement.setIndex(this.calculateIndex(i));
         if (imgUrlArrayId !== null) {
-            newImageElement.changeImage(this.imageUrlArray[imgUrlArrayId++], imgUrlArrayId);
+            newImageElement.changeImage(this.imageUrlArray[imgUrlArrayId], imgUrlArrayId);
+            imgUrlArrayId++;
             if (imgUrlArrayId >= this.imageUrlArray.length) {
                 imgUrlArrayId = 0;
             }
         }
         this.displayedImages.push(newImageElement);
     }
-    this.toString(false);
 }
 
 Carousel.prototype.calculateIndex = function(intArrayIndex) {
