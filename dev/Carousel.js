@@ -76,7 +76,11 @@ Carousel.prototype.rotate = function(forward = true) {
 }
 
 Carousel.prototype.addImage = function(imgObj) {
-
+    if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
+        this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
+    } else {
+        this.imageUrlArray.push(imgObj);
+    }
 }
 
 Carousel.prototype.setup = function() {
