@@ -2,6 +2,7 @@ function CarouselImage(linkNode) {
     this.domNode = null;
     this.imageNode = null;
     this.index = null;
+    this.imageid = null;
 
 
     if (linkNode instanceof HTMLAnchorElement) {
@@ -25,7 +26,7 @@ CarouselImage.prototype.setIndex = function (id) {
     this.domNode.dataset.sasCarouselIndex = this.index;
 }
 
-CarouselImage.prototype.changeImage = function (imgObj) {
+CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
     if (imgObj !== undefined && imgObj.hasOwnProperty("url") && imgObj.url != null && imgObj.hasOwnProperty("alt")) {
         this.imageNode.src = imgObj.url;
         this.imageNode.alt = imgObj.alt;
@@ -34,6 +35,7 @@ CarouselImage.prototype.changeImage = function (imgObj) {
         } else {
             this.domNode.href = "";
         }
+        this.imageid = imgObjId;
         return true;
     } else {
         return false;
