@@ -1,8 +1,9 @@
 let carouselElt = document.getElementById("carousel");
 
 let imageUrlArray = [];
+let i = 1;
 
-for (let i = 1 ; i <= 15 ; i++) {
+for (i ; i <= 15 ; i++) {
     let imageUrlObject = {
         url: "img/" + i + ".jpg",
         alt: "Image " + i,
@@ -13,6 +14,16 @@ for (let i = 1 ; i <= 15 ; i++) {
 
 
 let carouselObj = new Carousel(carouselElt, imageUrlArray);
+
+document.getElementById("add-image").addEventListener("click", function(e) {
+   let newImage = {
+       url: "img/" + i + ".jpg",
+       alt: "Image " + i,
+       redirection: "youtube.com"
+   };
+   i++;
+   carouselObj.addImage(newImage);
+});
 
 /*
 let carousel2Elt = document.getElementById("carousel2");

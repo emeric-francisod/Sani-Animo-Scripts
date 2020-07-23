@@ -81,6 +81,8 @@ Carousel.prototype.addImage = function(imgObj) {
     } else {
         this.imageUrlArray.push(imgObj);
     }
+
+    console.log(this.imageUrlArray);
 }
 
 Carousel.prototype.setup = function() {
