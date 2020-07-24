@@ -35,19 +35,14 @@ CarouselImage.prototype.getImageIndex = function () {
 }
 
 CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
-    if (imgObj !== undefined && imgObj.hasOwnProperty("url") && imgObj.url != null && imgObj.hasOwnProperty("alt")) {
-        this.imageNode.src = imgObj.url;
-        this.imageNode.alt = imgObj.alt;
-        if (imgObj.hasOwnProperty("redirection")) {
-            this.domNode.href = imgObj.redirection;
-        } else {
-            this.domNode.href = "";
-        }
-        this.imageid = imgObjId;
-        return true;
+    this.imageNode.src = imgObj.url;
+    this.imageNode.alt = imgObj.alt;
+    if (imgObj.hasOwnProperty("redirection")) {
+        this.domNode.href = imgObj.redirection;
     } else {
-        return false;
+        this.domNode.href = "";
     }
+    this.imageid = imgObjId;
 }
 
 CarouselImage.prototype.getDomNode = function () {

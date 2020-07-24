@@ -102,8 +102,23 @@ Carousel.prototype.testImageObject = function (imgObj) {
     }
 }
 
+Carousel.prototype.testImageUrlObject = function() {
+    for (let i = 0 ; i < this.imageUrlArray.length ; i++) {
+        if (!this.testImageObject(this.imageUrlArray[i])) {
+            this.imageUrlArray.splice(i, 1);
+            i--;
+        }
+    }
+    if (this.imageUrlArray.length === 0) {
+        console.error("L'array des objets image ne contient aucun objet valide.")
+        return false;
+    } else {
+        return true;
+    }
+}
+
 Carousel.prototype.setup = function() {
-    let imgUrlArrayId = (this.imageUrlArray.length > 0) ? 0 : null;
+    let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
     for (let i = 0 ; i < this.visibleImageNumber + 2 ; i++) {
         let newImageElement = new CarouselImage();
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
