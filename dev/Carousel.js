@@ -76,13 +76,30 @@ Carousel.prototype.rotate = function(forward = true) {
 }
 
 Carousel.prototype.addImage = function(imgObj) {
-    if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
-        this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
+    if (this.testImageObject(imgObj)) {
+        if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
+            this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
+        } else {
+            this.imageUrlArray.push(imgObj);
+        }
+        console.log(this.imageUrlArray);
+        return true;
     } else {
-        this.imageUrlArray.push(imgObj);
+        console.error("L'objet image à ajouter ne possède pas la bonne structure.");
+        return false;
     }
+}
 
-    console.log(this.imageUrlArray);
+Carousel.prototype.testImageObject = function (imgObj) {
+    if (
+        imgObj !== undefined
+        && imgObj.hasOwnProperty("url") && imgObj.url != null
+        && imgObj.hasOwnProperty("alt")
+    ) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 Carousel.prototype.setup = function() {
