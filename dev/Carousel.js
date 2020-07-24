@@ -15,6 +15,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.animationid = null;
     this.rotating = false;
     this.visibleImageNumber = 3;
+    this.currentElementNumber = 0;
 
     this.setup();
     this.setAutoRotation();
@@ -45,29 +46,31 @@ Carousel.prototype.toString = function(extended = true) {
 Carousel.prototype.rotate = function(forward = true) {
     this.rotating = true;
 
-    if (forward) {
-        let lastIndex = this.displayedImages.length - 1;
-        this.displayedImages.push(this.displayedImages.shift());
-        this.displayedImages.map(function (obj) {
-            obj.setIndex(obj.getIndex() - 1);
-        });
-        this.displayedImages[lastIndex].setIndex(this.displayedImages[lastIndex - 1].getIndex() + 1);
-        let newImageIndex = this.displayedImages[lastIndex - 1].getImageIndex() + 1;
-        if (newImageIndex >= this.imageUrlArray.length) {
-            newImageIndex = 0;
+    if (this.currentElementNumber > 1) {
+        if (forward) {
+            let lastIndex = this.displayedImages.length - 1;
+            this.displayedImages.push(this.displayedImages.shift());
+            this.displayedImages.map(function (obj) {
+                obj.setIndex(obj.getIndex() - 1);
+            });
+            this.displayedImages[lastIndex].setIndex(this.displayedImages[lastIndex - 1].getIndex() + 1);
+            let newImageIndex = this.displayedImages[lastIndex - 1].getImageIndex() + 1;
+            if (newImageIndex >= this.imageUrlArray.length) {
+                newImageIndex = 0;
+            }
+            this.displayedImages[lastIndex].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
+        } else {
+            this.displayedImages.unshift(this.displayedImages.pop());
+            this.displayedImages.map(function(obj) {
+                obj.setIndex(obj.getIndex() + 1);
+            });
+            this.displayedImages[0].setIndex(this.displayedImages[1].getIndex() - 1);
+            let newImageIndex = this.displayedImages[1].getImageIndex() - 1;
+            if (newImageIndex < 0) {
+                newImageIndex = this.imageUrlArray.length - 1;
+            }
+            this.displayedImages[0].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
         }
-        this.displayedImages[lastIndex].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
-    } else {
-        this.displayedImages.unshift(this.displayedImages.pop());
-        this.displayedImages.map(function(obj) {
-            obj.setIndex(obj.getIndex() + 1);
-        });
-        this.displayedImages[0].setIndex(this.displayedImages[1].getIndex() - 1);
-        let newImageIndex = this.displayedImages[1].getImageIndex() - 1;
-        if (newImageIndex < 0) {
-            newImageIndex = this.imageUrlArray.length - 1;
-        }
-        this.displayedImages[0].changeImage(this.imageUrlArray[newImageIndex], newImageIndex);
     }
 
     setTimeout((function() {
@@ -119,7 +122,8 @@ Carousel.prototype.testImageUrlObject = function() {
 
 Carousel.prototype.setup = function() {
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
-    for (let i = 0 ; i < this.visibleImageNumber + 2 ; i++) {
+    this.currentElementNumber = (this.imageUrlArray.length < this.visibleImageNumber) ? (this.imageUrlArray.length === 1) ? 1 : this.imageUrlArray.length + 2 : this.visibleImageNumber + 2;
+    for (let i = 0 ; i < this.currentElementNumber ; i++) {
         let newImageElement = new CarouselImage();
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
         newImageElement.setIndex(this.calculateIndex(i));
@@ -135,8 +139,8 @@ Carousel.prototype.setup = function() {
 }
 
 Carousel.prototype.calculateIndex = function(intArrayIndex) {
-    intArrayIndex = intArrayIndex % (this.visibleImageNumber + 2);
-    return -(Math.floor((this.visibleImageNumber + 2) / 2)) + intArrayIndex;
+    intArrayIndex = intArrayIndex % this.currentElementNumber;
+    return -(Math.floor(this.currentElementNumber / 2)) + intArrayIndex;
 }
 
 Carousel.prototype.setAutoRotation = function() {
