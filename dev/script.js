@@ -2,16 +2,14 @@ let carouselElt = document.getElementById("carousel");
 
 let imageUrlArray = [];
 let i = 1;
+let min = 5;
 
-for (i ; i <= 15 ; i++) {
+for (i ; i <= min ; i++) {
     let imageUrlObject = {
         url: "img/" + i + ".jpg",
         alt: "Image " + i,
         redirection : "#"
     };
-    if (i % 4 === 0) {
-        imageUrlObject.url = null;
-    }
     imageUrlArray.push(imageUrlObject);
 }
 
@@ -24,10 +22,6 @@ document.getElementById("add-image").addEventListener("click", function(e) {
         alt: "Image " + i,
         redirection: "youtube.com"
     };
-    if (i % 4 === 0) {
-        newImage.url = "";
-    }
-    i++;
     carouselObj.addImage(newImage);
 });
 

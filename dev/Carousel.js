@@ -118,7 +118,6 @@ Carousel.prototype.testImageUrlObject = function() {
 }
 
 Carousel.prototype.setup = function() {
-    console.log(this.imageUrlArray);
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
     for (let i = 0 ; i < this.visibleImageNumber + 2 ; i++) {
         let newImageElement = new CarouselImage();
@@ -133,7 +132,6 @@ Carousel.prototype.setup = function() {
         }
         this.displayedImages.push(newImageElement);
     }
-    console.log(this.imageUrlArray);
 }
 
 Carousel.prototype.calculateIndex = function(intArrayIndex) {
