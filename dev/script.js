@@ -9,6 +9,9 @@ for (i ; i <= 15 ; i++) {
         alt: "Image " + i,
         redirection : "#"
     };
+    if (i % 4 === 0) {
+        imageUrlObject.url = null;
+    }
     imageUrlArray.push(imageUrlObject);
 }
 
@@ -16,13 +19,16 @@ for (i ; i <= 15 ; i++) {
 let carouselObj = new Carousel(carouselElt, imageUrlArray);
 
 document.getElementById("add-image").addEventListener("click", function(e) {
-   let newImage = {
-       url: "img/" + i + ".jpg",
-       alt: "Image " + i,
-       redirection: "youtube.com"
-   };
-   i++;
-   carouselObj.addImage(newImage);
+    let newImage = {
+        url: "img/" + i + ".jpg",
+        alt: "Image " + i,
+        redirection: "youtube.com"
+    };
+    if (i % 4 === 0) {
+        newImage.url = "";
+    }
+    i++;
+    carouselObj.addImage(newImage);
 });
 
 /*
