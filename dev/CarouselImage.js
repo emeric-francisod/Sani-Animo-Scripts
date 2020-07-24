@@ -34,6 +34,10 @@ CarouselImage.prototype.getImageIndex = function () {
     return this.imageid;
 }
 
+CarouselImage.prototype.incrementImageIndex = function() {
+    this.imageid++;
+}
+
 CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
     this.imageNode.src = imgObj.url;
     this.imageNode.alt = imgObj.alt;

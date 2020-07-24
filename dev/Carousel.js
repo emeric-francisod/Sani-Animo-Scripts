@@ -80,13 +80,38 @@ Carousel.prototype.rotate = function(forward = true) {
 
 Carousel.prototype.addImage = function(imgObj) {
     if (this.testImageObject(imgObj)) {
-        if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
-            this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
+        if (this.currentElementNumber === this.visibleImageNumber + 2) {
+            if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
+                this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
+            } else {
+                this.imageUrlArray.push(imgObj);
+            }
+            console.log(this.imageUrlArray);
+            return true;
+
         } else {
-            this.imageUrlArray.push(imgObj);
+            let newCarouselElement = new CarouselImage();
+            this.carouselWrapper.appendChild(newCarouselElement.getDomNode());
+            let newIndex = 0;
+            if (this.currentElementNumber % 2 === 0) {
+                newIndex = this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1
+                this.imageUrlArray.splice(newIndex, 0, imgObj);
+                this.displayedImages.push(newCarouselElement);
+            } else {
+                newIndex = this.displayedImages[0].getImageIndex()
+                this.imageUrlArray.splice(newIndex, 0, imgObj);
+                for (let i = 0 ; i < this.displayedImages.length ; i++) {
+                    if (this.displayedImages[i].getImageIndex() >= newIndex) {
+                        this.displayedImages[i].incrementImageIndex();
+                    }
+                }
+                this.displayedImages.unshift(newCarouselElement);
+            }
+            this.currentElementNumber++;
+            newCarouselElement.changeImage(imgObj, newIndex);
+            this.calculateIndexes();
+            this.toString(true);
         }
-        console.log(this.imageUrlArray);
-        return true;
     } else {
         console.error("L'objet image à ajouter ne possède pas la bonne structure.");
         return false;
@@ -126,7 +151,6 @@ Carousel.prototype.setup = function() {
     for (let i = 0 ; i < this.currentElementNumber ; i++) {
         let newImageElement = new CarouselImage();
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
-        newImageElement.setIndex(this.calculateIndex(i));
         if (imgUrlArrayId !== null) {
             newImageElement.changeImage(this.imageUrlArray[imgUrlArrayId], imgUrlArrayId);
             imgUrlArrayId++;
@@ -136,6 +160,7 @@ Carousel.prototype.setup = function() {
         }
         this.displayedImages.push(newImageElement);
     }
+    this.calculateIndexes();
 }
 
 Carousel.prototype.calculateIndex = function(intArrayIndex) {
@@ -143,8 +168,14 @@ Carousel.prototype.calculateIndex = function(intArrayIndex) {
     return -(Math.floor(this.currentElementNumber / 2)) + intArrayIndex;
 }
 
+Carousel.prototype.calculateIndexes = function() {
+    for (let i = 0 ; i < this.displayedImages.length ; i++) {
+        this.displayedImages[i].setIndex(this.calculateIndex(i));
+    }
+}
+
 Carousel.prototype.setAutoRotation = function() {
-    this.animationId = setInterval(this.rotate.bind(this), 4000);
+    //this.animationId = setInterval(this.rotate.bind(this), 4000);
 }
 
 Carousel.prototype.createNavigation = function() {
