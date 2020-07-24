@@ -2,7 +2,7 @@ let carouselElt = document.getElementById("carousel");
 
 let imageUrlArray = [];
 let i = 1;
-let min = 5;
+let min = 1;
 
 for (i ; i <= min ; i++) {
     let imageUrlObject = {
@@ -22,6 +22,7 @@ document.getElementById("add-image").addEventListener("click", function(e) {
         alt: "Image " + i,
         redirection: "youtube.com"
     };
+    i++;
     carouselObj.addImage(newImage);
 });
 
