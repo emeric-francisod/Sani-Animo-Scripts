@@ -25,9 +25,3 @@ document.getElementById("add-image").addEventListener("click", function(e) {
     i++;
     carouselObj.addImage(newImage);
 });
-
-/*
-let carousel2Elt = document.getElementById("carousel2");
-let carousel2Obj = new Carousel(carousel2Elt);
-
- */
