@@ -77,32 +77,33 @@ Carousel.prototype.rotate = function(forward = true) {
 
 Carousel.prototype.addImage = function(imgObj) {
     if (this.testImageObject(imgObj)) {
-        if (this.currentElementNumber === this.visibleImageNumber + 2) {
-            if (this.displayedImages[0].getImageIndex() > this.displayedImages[this.displayedImages.length - 1].getImageIndex()) {
-                this.imageUrlArray.splice(this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1, 0, imgObj);
-            } else {
-                this.imageUrlArray.push(imgObj);
-            }
-            console.log(this.imageUrlArray);
-            return true;
+        let firstImageIndex = this.displayedImages[0].getImageIndex();
+        let lastImageIndex = this.displayedImages[this.displayedImages.length - 1].getImageIndex();
+        let addCarouselElement = this.currentElementNumber < this.visibleImageNumber + 2;
 
+        if (firstImageIndex > lastImageIndex || addCarouselElement && this.currentElementNumber % 2 === 0) {
+            this.imageUrlArray.splice(lastImageIndex + 1, 0, imgObj);
+        } else if (addCarouselElement) {
+            this.imageUrlArray.splice(firstImageIndex, 0, imgObj);
+            for (let i = 0 ; i < this.displayedImages.length ; i++) {
+                if (this.displayedImages[i].getImageIndex() >= firstImageIndex) {
+                    this.displayedImages[i].incrementImageIndex();
+                }
+            }
         } else {
+            this.imageUrlArray.push(imgObj);
+        }
+
+        if (addCarouselElement) {
             let newCarouselElement = new CarouselImage();
             this.carouselWrapper.appendChild(newCarouselElement.getDomNode());
             let newIndex = 0;
             if (this.currentElementNumber % 2 === 0) {
-                newIndex = this.displayedImages[this.displayedImages.length - 1].getImageIndex() + 1
-                this.imageUrlArray.splice(newIndex, 0, imgObj);
                 this.displayedImages.push(newCarouselElement);
+                newIndex = lastImageIndex + 1;
             } else {
-                newIndex = this.displayedImages[0].getImageIndex()
-                this.imageUrlArray.splice(newIndex, 0, imgObj);
-                for (let i = 0 ; i < this.displayedImages.length ; i++) {
-                    if (this.displayedImages[i].getImageIndex() >= newIndex) {
-                        this.displayedImages[i].incrementImageIndex();
-                    }
-                }
                 this.displayedImages.unshift(newCarouselElement);
+                newIndex = firstImageIndex;
             }
             this.currentElementNumber++;
             newCarouselElement.changeImage(imgObj, newIndex);
