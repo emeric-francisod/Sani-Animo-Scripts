@@ -160,14 +160,9 @@ Carousel.prototype.setup = function() {
     this.calculateIndexes();
 }
 
-Carousel.prototype.calculateIndex = function(intArrayIndex) {
-    intArrayIndex = intArrayIndex % this.currentElementNumber;
-    return -(Math.floor(this.currentElementNumber / 2)) + intArrayIndex;
-}
-
 Carousel.prototype.calculateIndexes = function() {
     for (let i = 0 ; i < this.displayedImages.length ; i++) {
-        this.displayedImages[i].setIndex(this.calculateIndex(i));
+        this.displayedImages[i].setIndex(i - (Math.floor(this.currentElementNumber / 2)));
     }
 }
 
