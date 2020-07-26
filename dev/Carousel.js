@@ -144,7 +144,21 @@ Carousel.prototype.testImageUrlObject = function() {
 
 Carousel.prototype.setup = function() {
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
-    this.currentElementNumber = (this.imageUrlArray.length < this.visibleImageNumber) ? (this.imageUrlArray.length === 1) ? 1 : this.imageUrlArray.length + 2 : this.visibleImageNumber + 2;
+
+    this.currentElementNumber = this.visibleImageNumber + 2;
+    if (this.imageUrlArray.length < this.visibleImageNumber) {
+        switch (this.imageUrlArray.length) {
+            case 0:
+                this.currentElementNumber = 0;
+                break;
+            case 1:
+                this.currentElementNumber = 1;
+                break;
+            default:
+                this.currentElementNumber = this.imageUrlArray.length + 2;
+        }
+    }
+
     for (let i = 0 ; i < this.currentElementNumber ; i++) {
         let newImageElement = new CarouselImage();
         this.carouselWrapper.appendChild(newImageElement.getDomNode());
