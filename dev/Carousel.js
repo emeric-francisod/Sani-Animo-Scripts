@@ -9,9 +9,6 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.carouselWrapper = carouselElt;
     this.imageUrlArray = imgUrlList;
     this.displayedImages = [];
-    this.imageNumber = this.imageUrlArray.length;
-    this.nextButton = null;
-    this.previousButton = null;
     this.animationid = null;
     this.rotating = false;
     this.visibleImageNumber = 3;
@@ -175,39 +172,29 @@ Carousel.prototype.calculateIndexes = function() {
 }
 
 Carousel.prototype.setAutoRotation = function() {
-    //this.animationId = setInterval(this.rotate.bind(this), 4000);
+    this.animationId = setInterval(this.rotate.bind(this), 4000);
 }
 
 Carousel.prototype.createNavigation = function() {
-    this.nextButton = document.createElement("a");
-    this.previousButton = document.createElement("a");
+    let createCarouselLink = function (role = "prev") {
+        let linkElt = document.createElement("a");
+        let forward = (role === "next");
+        linkElt.href = "";
+        linkElt.title = (role === "next") ? "Image suivante" : "Image précédente";
+        linkElt.classList.add("sas-carousel-" + role + "-button");
 
-    this.nextButton.setAttribute("href", "#");
-    this.previousButton.setAttribute("href", "#");
+        linkElt.addEventListener("click", (function(e) {
+            e.preventDefault();
+            if (!this.rotating) {
+                clearInterval(this.animationId);
+                this.rotate(forward);
+                this.setAutoRotation();
+            }
+        }).bind(this));
 
-    this.nextButton.setAttribute("title", "Image Suivante");
-    this.previousButton.setAttribute("title", "Image précédente");
+        return linkElt;
+    };
 
-    this.nextButton.classList.add("sas-carousel-next-button");
-    this.previousButton.classList.add("sas-carousel-prev-button");
-
-    this.nextButton.addEventListener("click", (function(e) {
-        e.preventDefault();
-        if (!this.rotating) {
-            clearInterval(this.animationId);
-            this.rotate(true);
-            this.setAutoRotation();
-        }
-    }).bind(this));
-    this.previousButton.addEventListener("click", (function(e) {
-        e.preventDefault();
-        if (!this.rotating) {
-            clearInterval(this.animationId);
-            this.rotate(false);
-            this.setAutoRotation();
-        }
-    }).bind(this));
-
-    this.carouselWrapper.appendChild(this.previousButton);
-    this.carouselWrapper.appendChild(this.nextButton);
+    this.carouselWrapper.appendChild(createCarouselLink.bind(this, "next")());
+    this.carouselWrapper.appendChild(createCarouselLink.bind(this)());
 }
