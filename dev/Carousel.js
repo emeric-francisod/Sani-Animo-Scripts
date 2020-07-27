@@ -70,13 +70,17 @@ Carousel.prototype.rotate = function(forward = true) {
         }
     }
 
-    this.displayedImages.map(function (obj) {
-        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex(), this.currentElementNumber);
-    }.bind(this));
+    this.draw();
 
     setTimeout((function() {
         this.rotating = false;
     }).bind(this), 350);
+}
+
+Carousel.prototype.draw = function () {
+    this.displayedImages.map(function (obj) {
+        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex(), this.currentElementNumber);
+    }.bind(this));
 }
 
 Carousel.prototype.addElement = function (arrayStart = false) {
@@ -179,6 +183,7 @@ Carousel.prototype.setup = function() {
         this.displayedImages.push(newImageElement);
     }
     this.calculateIndexes();
+    this.draw();
 }
 
 Carousel.prototype.calculateIndexes = function() {
