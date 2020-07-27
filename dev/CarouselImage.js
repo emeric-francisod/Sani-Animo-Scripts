@@ -53,6 +53,18 @@ CarouselImage.prototype.getDomNode = function () {
     return this.domNode;
 }
 
-CarouselImage.prototype.draw = function (minId, maxId) {
-    console.log(minId, maxId);
+CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
+    let elementLevel = Math.abs(this.index);
+    if (Math.abs(minId) === maxId && this.index > 0) {
+        elementLevel--;
+    }
+    let zIndexValue = Math.abs(minId) - elementLevel + 5;
+    let opacityLevel = 1 - elementLevel * (1 / (Math.abs(minId)));
+
+
+
+    console.log("id: " + this.index);
+    console.log("Niveau: " + elementLevel);
+    console.log("z-index: " + zIndexValue);
+    console.log("opacity: " + opacityLevel);
 }

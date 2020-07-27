@@ -26,7 +26,7 @@
     height: auto;
 }
 
-.sas-carousel-wrapper a.sas-carousel-image-link[data-sas-carousel-index="0"] {
+/* .sas-carousel-wrapper a.sas-carousel-image-link[data-sas-carousel-index="0"] {
     z-index: 10;
     opacity: 1;
 }
@@ -53,7 +53,7 @@
     opacity: 0;
     transform: translate3d(100%, -50%, -400px);
     z-index: 5;
-}
+} */
 
 .sas-carousel-wrapper a.sas-carousel-next-button {
     position: absolute;

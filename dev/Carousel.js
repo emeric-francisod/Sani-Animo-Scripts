@@ -11,7 +11,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.displayedImages = [];
     this.animationid = null;
     this.rotating = false;
-    this.visibleImageNumber = 3;
+    this.visibleImageNumber = 8;
     this.currentElementNumber = 0;
 
     this.setup();
@@ -71,7 +71,7 @@ Carousel.prototype.rotate = function(forward = true) {
     }
 
     this.displayedImages.map(function (obj) {
-        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex());
+        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex(), this.currentElementNumber);
     }.bind(this));
 
     setTimeout((function() {
