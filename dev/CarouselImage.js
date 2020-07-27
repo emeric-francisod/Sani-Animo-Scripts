@@ -52,3 +52,7 @@ CarouselImage.prototype.changeImage = function (imgObj, imgObjId) {
 CarouselImage.prototype.getDomNode = function () {
     return this.domNode;
 }
+
+CarouselImage.prototype.draw = function (minId, maxId) {
+    console.log(minId, maxId);
+}

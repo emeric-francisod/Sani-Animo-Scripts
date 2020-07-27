@@ -70,6 +70,10 @@ Carousel.prototype.rotate = function(forward = true) {
         }
     }
 
+    this.displayedImages.map(function (obj) {
+        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex());
+    }.bind(this));
+
     setTimeout((function() {
         this.rotating = false;
     }).bind(this), 350);
