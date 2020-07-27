@@ -64,8 +64,10 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
 
     let absoluteIndex = mapInterval(this.index, minId, maxId, 0, nbElements - 1);
     let virtualCircleAngle = (Math.PI * 2 / (nbElements) * absoluteIndex + Math.PI) % (2 * Math.PI);
-    let zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, -1000, 0) + Number.EPSILON) * 100) / 100;
-    let xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -200, 200) + Number.EPSILON) * 100) / 100 - 50;
+
+    let minDepth = - Math.max(Math.ceil(nbElements * 100), 1000);
+    let zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, minDepth, 0) + Number.EPSILON) * 100) / 100;
+    let xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 - 50;
 
     let opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, 1, 0, 1);
 
@@ -81,5 +83,4 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     console.log("z :" + zTranslation);
     console.log("x :" + xTranslation);
     console.log("");
-
 }
