@@ -59,7 +59,7 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
         elementLevel--;
     }
     let zIndexValue = Math.abs(minId) - elementLevel + 5;
-    let opacityLevel = 1 - elementLevel * (1 / (Math.abs(minId)));
+    let opacityLevel = (minId !== 0) ? 1 - elementLevel * (1 / (Math.abs(minId))) : 1;
 
 
 
