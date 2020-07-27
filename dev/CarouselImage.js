@@ -63,8 +63,8 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
 
 
 
-    console.log("id: " + this.index);
+    /* console.log("id: " + this.index);
     console.log("Niveau: " + elementLevel);
     console.log("z-index: " + zIndexValue);
-    console.log("opacity: " + opacityLevel);
+    console.log("opacity: " + opacityLevel); */
 }
