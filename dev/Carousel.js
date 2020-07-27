@@ -100,7 +100,7 @@ Carousel.prototype.addImage = function(imgObj) {
         let firstImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[0].getImageIndex() : 0;
         let lastImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[this.displayedImages.length - 1].getImageIndex() : 0;
 
-        if (this.currentElementNumber < this.visibleImageNumber + 2) {
+        if (this.currentElementNumber < this.visibleImageNumber + 1) {
             let newCarouselElement = null;
             let newIndex = 0;
             if (this.currentElementNumber === 0) {
@@ -164,7 +164,7 @@ Carousel.prototype.testImageUrlObject = function() {
 Carousel.prototype.setup = function() {
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
 
-    this.currentElementNumber = (this.imageUrlArray.length < this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 2;
+    this.currentElementNumber = (this.imageUrlArray.length < this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
 
     for (let i = 0 ; i < this.currentElementNumber ; i++) {
         let newImageElement = new CarouselImage();
