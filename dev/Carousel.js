@@ -11,7 +11,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.displayedImages = [];
     this.animationid = null;
     this.rotating = false;
-    this.visibleImageNumber = 8;
+    this.visibleImageNumber = 5;
     this.currentElementNumber = 0;
 
     this.setup();

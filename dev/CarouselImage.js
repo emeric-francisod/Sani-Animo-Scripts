@@ -68,6 +68,10 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     let zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, -1000, 0) + Number.EPSILON) * 100) / 100;
     let xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -200, 200) + Number.EPSILON) * 100) / 100 - 50;
 
+    this.domNode.style.zIndex = zIndexValue;
+    this.domNode.style.opacity = opacityLevel;
+    this.domNode.style.transform = "translate3d(" + xTranslation + "%, -50%, " + zTranslation + "px)";
+
     console.log("id: " + this.index);
     console.log("Niveau: " + elementLevel);
     console.log("z-index: " + zIndexValue);
