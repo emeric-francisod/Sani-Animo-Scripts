@@ -1,4 +1,7 @@
 function mapInterval (value, start1, stop1, start2, stop2) {
+    if (stop1 - start1 === 0) {
+        return false;
+    }
     return (value - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 }
 
@@ -8,7 +11,7 @@ let carouselElt = document.getElementById("carousel");
 
 let imageUrlArray = [];
 let i = 1;
-let min = 15;
+let min = 0;
 
 for (i ; i <= min ; i++) {
     let imageUrlObject = {

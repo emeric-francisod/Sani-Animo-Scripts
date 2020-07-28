@@ -54,32 +54,48 @@ CarouselImage.prototype.getDomNode = function () {
 }
 
 CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
-    let elementLevel = Math.abs(this.index);
-    if (Math.abs(minId) === maxId && this.index > 0) {
-        elementLevel--;
+    let elementLevel = 0;
+    let absoluteIndex = 0;
+    let virtualCircleAngle = 0;
+    let minDepth = -1000;
+    let zIndexValue = 5;
+    let zTranslation = 0;
+    let xTranslation = 0;
+    let opacityLevel = 1;
+
+    if (nbElements > 1) {
+        elementLevel = Math.abs(this.index);
+        if (Math.abs(minId) === maxId && this.index > 0) {
+            elementLevel--;
+        }
+
+        zIndexValue = Math.abs(minId) - elementLevel + zIndexValue;
+
+
+        absoluteIndex = mapInterval(this.index, minId, maxId, 0, nbElements - 1);
+        virtualCircleAngle = (Math.PI * 2 / (nbElements) * absoluteIndex + Math.PI) % (2 * Math.PI);
+
+        minDepth = - Math.max(Math.ceil(nbElements * 100), minDepth);
+        zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, minDepth, 0) + Number.EPSILON) * 100) / 100;
+        xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 + xTranslation;
+
+        opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, 1, 0, 1);
     }
-
-    let zIndexValue = Math.abs(minId) - elementLevel + 5;
-
-
-    let absoluteIndex = mapInterval(this.index, minId, maxId, 0, nbElements - 1);
-    let virtualCircleAngle = (Math.PI * 2 / (nbElements) * absoluteIndex + Math.PI) % (2 * Math.PI);
-
-    let minDepth = - Math.max(Math.ceil(nbElements * 100), 1000);
-    let zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, minDepth, 0) + Number.EPSILON) * 100) / 100;
-    let xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 - 50;
-
-    let opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, 1, 0, 1);
 
     this.domNode.style.zIndex = zIndexValue;
     this.domNode.style.opacity = opacityLevel;
-    this.domNode.style.transform = "translate3d(" + xTranslation + "%, -50%, " + zTranslation + "px)";
+    this.domNode.style.transform = "translate3d(calc(-50% + " + xTranslation + "px), -50%, " + zTranslation + "px)";
 
+    console.log("minId: " + minId);
+    console.log("maxId: " + maxId);
+    console.log("Nombre éléments: " + nbElements);
     console.log("id: " + this.index);
+    console.log("Index absolu: " + absoluteIndex);
     console.log("Niveau: " + elementLevel);
     console.log("z-index: " + zIndexValue);
     console.log("opacity: " + opacityLevel);
     console.log("angle: " + virtualCircleAngle);
+    console.log("Profondeur minimale: " + minDepth);
     console.log("z :" + zTranslation);
     console.log("x :" + xTranslation);
     console.log("");
