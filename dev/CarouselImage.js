@@ -56,7 +56,10 @@ CarouselImage.prototype.getDomNode = function () {
 CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     let elementLevel = 0;
     let absoluteIndex = 0;
+    let focusAbsoluteIndex = 0
     let virtualCircleAngle = 0;
+    let focusVirtualCircleAngle = 0;
+    let focusCos = 1;
     let minDepth = -1000;
     let zIndexValue = 5;
     let zTranslation = 0;
@@ -73,13 +76,16 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
 
 
         absoluteIndex = mapInterval(this.index, minId, maxId, 0, nbElements - 1);
+        focusAbsoluteIndex = mapInterval(0, minId, maxId, 0, nbElements - 1);
         virtualCircleAngle = (Math.PI * 2 / (nbElements) * absoluteIndex + Math.PI) % (2 * Math.PI);
+        focusVirtualCircleAngle = (Math.PI * 2 / (nbElements) * focusAbsoluteIndex + Math.PI) % (2 * Math.PI);
+        focusCos = Math.cos(focusVirtualCircleAngle);
 
         minDepth = - Math.max(Math.ceil(nbElements * 100), minDepth);
-        zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, 1, minDepth, 0) + Number.EPSILON) * 100) / 100;
+        zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, focusCos, minDepth, 0) + Number.EPSILON) * 100) / 100;
         xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 + xTranslation;
 
-        opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, 1, 0, 1);
+        opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, focusCos, 0, 1);
     }
 
     this.domNode.style.zIndex = zIndexValue;
@@ -91,10 +97,12 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     console.log("Nombre éléments: " + nbElements);
     console.log("id: " + this.index);
     console.log("Index absolu: " + absoluteIndex);
+    console.log("Index absolu focus: " + focusAbsoluteIndex);
     console.log("Niveau: " + elementLevel);
     console.log("z-index: " + zIndexValue);
     console.log("opacity: " + opacityLevel);
     console.log("angle: " + virtualCircleAngle);
+    console.log("angle focus: " + focusVirtualCircleAngle);
     console.log("Profondeur minimale: " + minDepth);
     console.log("z :" + zTranslation);
     console.log("x :" + xTranslation);

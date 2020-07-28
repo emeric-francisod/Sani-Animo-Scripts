@@ -11,7 +11,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.displayedImages = [];
     this.animationid = null;
     this.rotating = false;
-    this.visibleImageNumber = 9;
+    this.visibleImageNumber = 8;
     this.currentElementNumber = 0;
 
     this.setup();
@@ -193,7 +193,7 @@ Carousel.prototype.calculateIndexes = function() {
 }
 
 Carousel.prototype.setAutoRotation = function() {
-    this.animationId = setInterval(this.rotate.bind(this), 4000);
+    //this.animationId = setInterval(this.rotate.bind(this), 4000);
 }
 
 Carousel.prototype.createNavigation = function() {
