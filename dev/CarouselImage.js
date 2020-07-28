@@ -85,6 +85,10 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
         zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, focusCos, minDepth, 0) + Number.EPSILON) * 100) / 100;
         xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 + xTranslation;
 
+        if (elementLevel === 0) {
+            xTranslation = xTranslation / Math.abs(xTranslation) * Math.max(Math.abs(xTranslation), this.imageNode.clientWidth / 2 + 16);
+        }
+
         opacityLevel = mapInterval(Math.cos(virtualCircleAngle), -1, focusCos, 0, 1);
     }
 
