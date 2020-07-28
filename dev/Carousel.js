@@ -79,7 +79,7 @@ Carousel.prototype.rotate = function(forward = true) {
 
 Carousel.prototype.draw = function () {
     this.displayedImages.map(function (obj) {
-        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex(), this.currentElementNumber);
+        obj.draw(this.displayedImages[0].getIndex(), this.displayedImages[this.displayedImages.length - 1].getIndex(), this.currentElementNumber, this.carouselWrapper.clientWidth);
     }.bind(this));
 }
 

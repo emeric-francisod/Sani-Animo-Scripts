@@ -53,7 +53,7 @@ CarouselImage.prototype.getDomNode = function () {
     return this.domNode;
 }
 
-CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
+CarouselImage.prototype.draw = function (minId, maxId, nbElements, containerWidth) {
     let elementLevel = 0;
     let absoluteIndex = 0;
     let focusAbsoluteIndex = 0
@@ -61,6 +61,7 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     let focusVirtualCircleAngle = 0;
     let focusCos = 1;
     let minDepth = -1000;
+    let absoluteMaxTranslation = containerWidth * 0.6 / 2;
     let zIndexValue = 5;
     let zTranslation = 0;
     let xTranslation = 0;
@@ -83,9 +84,9 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
 
         minDepth = - Math.max(Math.ceil(nbElements * 100), minDepth);
         zTranslation = Math.round((mapInterval(Math.cos(virtualCircleAngle), -1, focusCos, minDepth, 0) + Number.EPSILON) * 100) / 100;
-        xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -150, 150) + Number.EPSILON) * 100) / 100 + xTranslation;
+        xTranslation = Math.round((mapInterval(Math.sin(virtualCircleAngle), -1, 1, -absoluteMaxTranslation, absoluteMaxTranslation) + Number.EPSILON) * 100) / 100;
 
-        if (elementLevel === 0) {
+        if (elementLevel === 0 && Math.abs(minId) === maxId) {
             xTranslation = xTranslation / Math.abs(xTranslation) * Math.max(Math.abs(xTranslation), this.imageNode.clientWidth / 2 + 16);
         }
 
@@ -96,10 +97,11 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     this.domNode.style.opacity = opacityLevel;
     this.domNode.style.transform = "translate3d(calc(-50% + " + xTranslation + "px), -50%, " + zTranslation + "px)";
 
+    console.log("id: " + this.index);
     console.log("minId: " + minId);
     console.log("maxId: " + maxId);
     console.log("Nombre éléments: " + nbElements);
-    console.log("id: " + this.index);
+    console.log("Largeur conteneur: " + containerWidth);
     console.log("Index absolu: " + absoluteIndex);
     console.log("Index absolu focus: " + focusAbsoluteIndex);
     console.log("Niveau: " + elementLevel);
@@ -108,6 +110,7 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements) {
     console.log("angle: " + virtualCircleAngle);
     console.log("angle focus: " + focusVirtualCircleAngle);
     console.log("Profondeur minimale: " + minDepth);
+    console.log("Translation maximale: " + absoluteMaxTranslation);
     console.log("z :" + zTranslation);
     console.log("x :" + xTranslation);
     console.log("");
