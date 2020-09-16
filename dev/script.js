@@ -34,3 +34,7 @@ document.getElementById("add-image").addEventListener("click", function(e) {
     i++;
     carouselObj.addImage(newImage);
 });
+
+window.addEventListener("resize", function(e) {
+    carouselObj.resize();
+});
