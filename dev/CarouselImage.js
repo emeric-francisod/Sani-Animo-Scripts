@@ -97,7 +97,7 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements, containerWidt
     this.domNode.style.opacity = opacityLevel;
     this.domNode.style.transform = "translate3d(calc(-50% + " + xTranslation + "px), -50%, " + zTranslation + "px)";
 
-    console.log("id: " + this.index);
+    /* console.log("id: " + this.index);
     console.log("minId: " + minId);
     console.log("maxId: " + maxId);
     console.log("Nombre éléments: " + nbElements);
@@ -113,5 +113,5 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements, containerWidt
     console.log("Translation maximale: " + absoluteMaxTranslation);
     console.log("z :" + zTranslation);
     console.log("x :" + xTranslation);
-    console.log("");
+    console.log(""); */
 }

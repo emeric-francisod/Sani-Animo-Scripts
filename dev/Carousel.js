@@ -109,7 +109,15 @@ Carousel.prototype.resize = function() {
         }
     }
 
-    console.log(newElementNumber);
+    while (newElementNumber !== this.visibleImageNumber) {
+        if (newElementNumber > this.visibleImageNumber) {
+            this.visibleImageNumber++;
+            this.addImage();
+        } else if (newElementNumber < this.visibleImageNumber ) {
+            this.visibleImageNumber--;
+            this.removeElement();
+        }
+    }
 
     this.draw();
 }
@@ -120,14 +128,30 @@ Carousel.prototype.draw = function () {
     }.bind(this));
 }
 
-Carousel.prototype.addElement = function (arrayStart = false) {
+Carousel.prototype.removeElement = function(arrayStart = true) {
+    if (this.currentElementNumber > 0) {
+        let removedElement = null;
+
+        if (this.currentElementNumber % 2 === 0) {
+            removedElement = this.displayedImages.shift();
+        } else {
+            removedElement = this.displayedImages.pop();
+        }
+        this.carouselWrapper.removeChild(removedElement.getDomNode());
+
+        this.currentElementNumber--;
+        this.calculateIndexes();
+    }
+}
+
+Carousel.prototype.addElement = function () {
     let newCarouselElement = new CarouselImage();
     this.carouselWrapper.appendChild(newCarouselElement.getDomNode());
 
-    if (arrayStart) {
-        this.displayedImages.unshift(newCarouselElement);
-    } else {
+    if (this.currentElementNumber % 2 === 0) {
         this.displayedImages.push(newCarouselElement);
+    } else {
+        this.displayedImages.unshift(newCarouselElement);
     }
 
     this.currentElementNumber++;
@@ -136,21 +160,29 @@ Carousel.prototype.addElement = function (arrayStart = false) {
     return newCarouselElement;
 }
 
-Carousel.prototype.addImage = function(imgObj) {
-    if (this.testImageObject(imgObj)) {
-        let firstImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[0].getImageIndex() : 0;
-        let lastImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[this.displayedImages.length - 1].getImageIndex() : 0;
+Carousel.prototype.addImage = function(imgObj = null) {
+    let firstImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[0].getImageIndex() : 0;
+    let lastImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[this.displayedImages.length - 1].getImageIndex() : 0;
 
+    if (imgObj === null) {
+        if (this.imageUrlArray.length >= this.visibleImageNumber + 1) {
+            let newIndex = 0;
+            if (this.currentElementNumber % 2 === 0) {
+                newIndex = (lastImageIndex + 1 >= this.imageUrlArray.length) ? 0 : lastImageIndex + 1;
+            } else {
+                newIndex = (firstImageIndex - 1 < 0) ? this.imageUrlArray.length - 1 : firstImageIndex - 1;
+            }
+            let newCarouselElement = this.addElement();
+            newCarouselElement.changeImage(this.imageUrlArray[newIndex], newIndex);
+        }
+    } else if (this.testImageObject(imgObj)) {
         if (this.currentElementNumber < this.visibleImageNumber + 1) {
-            let newCarouselElement = null;
             let newIndex = 0;
             if (this.currentElementNumber === 0) {
                 this.imageUrlArray.push(imgObj);
-                newCarouselElement = this.addElement();
                 newIndex = 0;
             } else if (this.currentElementNumber % 2 === 0) {
                 this.imageUrlArray.splice(lastImageIndex + 1, 0, imgObj);
-                newCarouselElement = this.addElement();
                 newIndex = lastImageIndex + 1;
             } else {
                 this.imageUrlArray.splice(firstImageIndex, 0, imgObj);
@@ -159,9 +191,9 @@ Carousel.prototype.addImage = function(imgObj) {
                         this.displayedImages[i].incrementImageIndex();
                     }
                 }
-                newCarouselElement = this.addElement(true);
                 newIndex = firstImageIndex;
             }
+            let newCarouselElement = this.addElement();
             newCarouselElement.changeImage(imgObj, newIndex);
         } else if (firstImageIndex > lastImageIndex) {
             this.imageUrlArray.splice(lastImageIndex + 1, 0, imgObj);
@@ -207,7 +239,7 @@ Carousel.prototype.testImageUrlObject = function() {
 Carousel.prototype.setup = function() {
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
 
-    this.currentElementNumber = (this.imageUrlArray.length < this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
+    this.currentElementNumber = (this.imageUrlArray.length <= this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
 
     for (let i = 0 ; i < this.currentElementNumber ; i++) {
         let newImageElement = new CarouselImage();
