@@ -5,7 +5,28 @@
  *  lien vers lequel pointer
  */
 
-function Carousel(carouselElt, imgUrlList = null) {
+function Carousel(carouselElt, imgUrlList = null, breakpoints = [
+    {
+        min: 0,
+        max: 990,
+        imgNumber: 1
+    },
+    {
+        min: 991,
+        max: 1199,
+        imgNumber: 3
+    },
+    {
+        min: 1200,
+        max: 1920,
+        imgNumber: 5
+    },
+    {
+        min: 1921,
+        max: null,
+        imgNumber: 7,
+    }
+]) {
     this.carouselWrapper = carouselElt;
     this.imageUrlArray = imgUrlList;
     this.displayedImages = [];
@@ -13,6 +34,7 @@ function Carousel(carouselElt, imgUrlList = null) {
     this.rotating = false;
     this.visibleImageNumber = 8;
     this.currentElementNumber = 0;
+    this.breakpoints = breakpoints;
 
     this.setup();
     this.setAutoRotation();
@@ -78,6 +100,17 @@ Carousel.prototype.rotate = function(forward = true) {
 }
 
 Carousel.prototype.resize = function() {
+    let newElementNumber = this.visibleImageNumber;
+
+    for (let i = 0 ; i < this.breakpoints.length ; i++) {
+        if (window.innerWidth >= this.breakpoints[i].min && window.innerWidth <= this.breakpoints[i].max) {
+            newElementNumber = this.breakpoints[i].imgNumber;
+            break;
+        }
+    }
+
+    console.log(newElementNumber);
+
     this.draw();
 }
 
