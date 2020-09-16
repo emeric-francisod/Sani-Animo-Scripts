@@ -132,6 +132,8 @@ Carousel.prototype.addImage = function(imgObj) {
             this.imageUrlArray.push(imgObj);
         }
 
+        this.draw();
+
     } else {
         console.error("L'objet image à ajouter ne possède pas la bonne structure.");
         return false;
