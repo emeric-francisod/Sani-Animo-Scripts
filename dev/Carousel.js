@@ -109,6 +109,7 @@ Carousel.prototype.resize = function() {
         }
     }
 
+
     while (newElementNumber !== this.visibleImageNumber) {
         if (newElementNumber > this.visibleImageNumber) {
             this.visibleImageNumber++;
@@ -118,6 +119,12 @@ Carousel.prototype.resize = function() {
             this.removeElement();
         }
     }
+
+    console.log("------------------------------------------------");
+    console.log("Brekapoints images: " + newElementNumber);
+    console.log("Nombre d'images à afficher: " + this.visibleImageNumber);
+    console.log("Nombre d'éléments acutelles: " + this.currentElementNumber);
+    console.log("Nombre d'images possibles: " + this.imageUrlArray.length);
 
     this.draw();
 }
@@ -129,7 +136,7 @@ Carousel.prototype.draw = function () {
 }
 
 Carousel.prototype.removeElement = function(arrayStart = true) {
-    if (this.currentElementNumber > 0) {
+    if (this.currentElementNumber > this.visibleImageNumber + 1) {
         let removedElement = null;
 
         if (this.currentElementNumber % 2 === 0) {
@@ -165,7 +172,7 @@ Carousel.prototype.addImage = function(imgObj = null) {
     let lastImageIndex = (this.currentElementNumber !== 0) ? this.displayedImages[this.displayedImages.length - 1].getImageIndex() : 0;
 
     if (imgObj === null) {
-        if (this.imageUrlArray.length >= this.visibleImageNumber + 1) {
+        if (this.imageUrlArray.length > this.currentElementNumber) {
             let newIndex = 0;
             if (this.currentElementNumber % 2 === 0) {
                 newIndex = (lastImageIndex + 1 >= this.imageUrlArray.length) ? 0 : lastImageIndex + 1;
