@@ -32,7 +32,7 @@ function Carousel(carouselElt, imgUrlList = null, breakpoints = [
     this.displayedImages = [];
     this.animationid = null;
     this.rotating = false;
-    this.visibleImageNumber = 8;
+    this.visibleImageNumber = null;
     this.currentElementNumber = 0;
     this.breakpoints = breakpoints;
 
@@ -99,7 +99,7 @@ Carousel.prototype.rotate = function(forward = true) {
     }).bind(this), 350);
 }
 
-Carousel.prototype.resize = function() {
+Carousel.prototype.getBreakpointImageNumber = function() {
     let newElementNumber = this.visibleImageNumber;
 
     for (let i = 0 ; i < this.breakpoints.length ; i++) {
@@ -108,6 +108,12 @@ Carousel.prototype.resize = function() {
             break;
         }
     }
+
+    return newElementNumber;
+}
+
+Carousel.prototype.resize = function() {
+    let newElementNumber = this.getBreakpointImageNumber();
 
 
     while (newElementNumber !== this.visibleImageNumber) {
@@ -244,6 +250,8 @@ Carousel.prototype.testImageUrlObject = function() {
 }
 
 Carousel.prototype.setup = function() {
+    this.visibleImageNumber = this.getBreakpointImageNumber();
+
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
 
     this.currentElementNumber = (this.imageUrlArray.length <= this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
