@@ -11,7 +11,7 @@ let carouselElt = document.getElementById("carousel");
 
 let imageUrlArray = [];
 let i = 1;
-let min = 0;
+let min = 10;
 
 for (i ; i <= min ; i++) {
     let imageUrlObject = {

@@ -42,6 +42,11 @@ function Carousel(carouselElt, imgUrlList = null, breakpoints = [
 }
 
 Carousel.prototype.toString = function(extended = true) {
+    console.log("Brekapoints images: " + newElementNumber);
+    console.log("Nombre d'éléments à afficher: " + this.visibleImageNumber);
+    console.log("Nombre d'éléments actuels: " + this.currentElementNumber);
+    console.log("Nombre d'images disponibles: " + this.imageUrlArray.length);
+    console.log("");
     console.log("Images affichées: ");
     if (extended) {
         for (let i = 0 ; i < this.displayedImages.length ; i++) {
@@ -115,7 +120,6 @@ Carousel.prototype.getBreakpointImageNumber = function() {
 Carousel.prototype.resize = function() {
     let newElementNumber = this.getBreakpointImageNumber();
 
-
     while (newElementNumber !== this.visibleImageNumber) {
         if (newElementNumber > this.visibleImageNumber) {
             this.visibleImageNumber++;
@@ -125,12 +129,6 @@ Carousel.prototype.resize = function() {
             this.removeElement();
         }
     }
-
-    console.log("------------------------------------------------");
-    console.log("Brekapoints images: " + newElementNumber);
-    console.log("Nombre d'images à afficher: " + this.visibleImageNumber);
-    console.log("Nombre d'éléments acutelles: " + this.currentElementNumber);
-    console.log("Nombre d'images possibles: " + this.imageUrlArray.length);
 
     this.draw();
 }
@@ -157,11 +155,11 @@ Carousel.prototype.removeElement = function(arrayStart = true) {
     }
 }
 
-Carousel.prototype.addElement = function () {
+Carousel.prototype.addElement = function (pushElt = false) {
     let newCarouselElement = new CarouselImage();
     this.carouselWrapper.appendChild(newCarouselElement.getDomNode());
 
-    if (this.currentElementNumber % 2 === 0) {
+    if (this.currentElementNumber % 2 === 0 || pushElt) {
         this.displayedImages.push(newCarouselElement);
     } else {
         this.displayedImages.unshift(newCarouselElement);
@@ -254,21 +252,18 @@ Carousel.prototype.setup = function() {
 
     let imgUrlArrayId = (this.testImageUrlObject()) ? 0 : null;
 
-    this.currentElementNumber = (this.imageUrlArray.length <= this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
+    if (imgUrlArrayId !== null) {
+        let EltNumberDisplay = (this.imageUrlArray.length <= this.visibleImageNumber) ? this.imageUrlArray.length : this.visibleImageNumber + 1;
 
-    for (let i = 0 ; i < this.currentElementNumber ; i++) {
-        let newImageElement = new CarouselImage();
-        this.carouselWrapper.appendChild(newImageElement.getDomNode());
-        if (imgUrlArrayId !== null) {
+        for (let i = 0 ; i < EltNumberDisplay ; i++) {
+            let newImageElement = this.addElement(true);
             newImageElement.changeImage(this.imageUrlArray[imgUrlArrayId], imgUrlArrayId);
             imgUrlArrayId++;
             if (imgUrlArrayId >= this.imageUrlArray.length) {
                 imgUrlArrayId = 0;
             }
         }
-        this.displayedImages.push(newImageElement);
     }
-    this.calculateIndexes();
     this.draw();
 }
 
