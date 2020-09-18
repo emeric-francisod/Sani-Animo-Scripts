@@ -274,7 +274,7 @@ Carousel.prototype.calculateIndexes = function() {
 }
 
 Carousel.prototype.setAutoRotation = function() {
-    //this.animationId = setInterval(this.rotate.bind(this), 4000);
+    this.animationId = setInterval(this.rotate.bind(this), 4000);
 }
 
 Carousel.prototype.createNavigation = function() {
