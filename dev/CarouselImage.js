@@ -96,22 +96,4 @@ CarouselImage.prototype.draw = function (minId, maxId, nbElements, containerWidt
     this.domNode.style.zIndex = zIndexValue;
     this.domNode.style.opacity = opacityLevel;
     this.domNode.style.transform = "translate3d(calc(-50% + " + xTranslation + "px), -50%, " + zTranslation + "px)";
-
-    /* console.log("id: " + this.index);
-    console.log("minId: " + minId);
-    console.log("maxId: " + maxId);
-    console.log("Nombre éléments: " + nbElements);
-    console.log("Largeur conteneur: " + containerWidth);
-    console.log("Index absolu: " + absoluteIndex);
-    console.log("Index absolu focus: " + focusAbsoluteIndex);
-    console.log("Niveau: " + elementLevel);
-    console.log("z-index: " + zIndexValue);
-    console.log("opacity: " + opacityLevel);
-    console.log("angle: " + virtualCircleAngle);
-    console.log("angle focus: " + focusVirtualCircleAngle);
-    console.log("Profondeur minimale: " + minDepth);
-    console.log("Translation maximale: " + absoluteMaxTranslation);
-    console.log("z :" + zTranslation);
-    console.log("x :" + xTranslation);
-    console.log(""); */
 }
